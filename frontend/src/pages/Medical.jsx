@@ -27,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Medical = (props) => {
     const classes = useStyles();
+    const {
+        user
+    } = props;
+    console.log(user)
 
     //eample to use auth
     const [token, setToken] = useCookies(['auth_token']);

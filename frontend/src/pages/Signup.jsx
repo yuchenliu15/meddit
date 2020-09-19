@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie';
 import { useHistory } from "react-router-dom";
 
-export default () => {
+export default ({updateUser}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useCookies(['auth_token']);
@@ -18,6 +18,7 @@ export default () => {
                 username,
                 password
             }).then((res) => {
+                updateUser({id: username})
                 setToken('auth_token', res.data)
                 history.push('/');
             }).catch(e => {

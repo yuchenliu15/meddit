@@ -19,6 +19,12 @@ const useStyles = makeStyles((theme) => ({
 
 const App = (props) => {
   const classes = useStyles();
+  const [user, setUser] = useState({});
+
+  const updateUser = (newUserData) => {
+    Object.assign(user, newUserData);
+    setUser(user)
+  }
 
   return (
     <Router>
@@ -31,10 +37,10 @@ const App = (props) => {
             <Community></Community>
           </Route>
           <Route path="/signup">
-            <Singup></Singup>
+            <Singup updateUser={updateUser} ></Singup>
           </Route>
           <Route path="/">
-            <Medical></Medical>
+            <Medical user={user}></Medical>
           </Route>
         </Switch>
       </div>
