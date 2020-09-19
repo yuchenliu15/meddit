@@ -42,6 +42,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Community = (props) => {
+
+    useEffect(() => {
+        fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ/posts', {
+            method: 'GET',
+            headers: {
+                'Accept' : 'application/json',
+            }})
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+            },
+            (error) => {
+                console.log(error);
+            });
+    })
     const classes = useStyles();
     const [activeTopic, setActiveTopic] = useState('all');
     return (
