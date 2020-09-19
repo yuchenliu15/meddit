@@ -10,9 +10,11 @@ class Posts {
         const newKey = firebase.database().ref("/Posts").push().key;
 
         const post = {
-            content: content,
             title: title,
+            description: description,
+            content: content,
             topic: topic,
+            symptoms: symptoms,
             timestamp: Date.now()
         }
         const updates = {};
