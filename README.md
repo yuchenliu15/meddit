@@ -1,4 +1,6 @@
 ### backend
+- install nodemon globally!
+    `npm install -g nodemon` 
 - go to /backend
 
     `npm i` 
