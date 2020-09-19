@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {Grid, Fade, Button, makeStyles, Typography, Box, CardContent, Card} from '@material-ui/core';
+import {Grid, Fade, Button, makeStyles, Typography, Box, CardContent, Card, Divider} from '@material-ui/core';
+import Post from '../components/Post';
+import Comments from '../components/CommentSection';
 
 const useStyles = makeStyles((theme) => ({
     postCard: {
@@ -30,7 +32,21 @@ const useStyles = makeStyles((theme) => ({
 const CommunityPost = (props) => {
     const classes = useStyles();
     return (
-        <Typography>Community Post</Typography>
+        <div className = {classes.container}>
+            <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
+                <Grid item xs ={12} mg = {6} lg ={7} xl = {7} style = {{marginLeft: '1rem', marginTop: '1rem', height: '80vmin'}}>
+                    <Grid container direciton = 'column' spacing = {3}>
+                        <Grid item>
+                            <Post></Post>
+                        </Grid>
+                        <Divider />
+                        <Grid item>
+                            <Comments></Comments>
+                        </Grid> 
+                    </Grid>
+                </Grid>
+            </Grid>
+        </div>
     )
 }
 
