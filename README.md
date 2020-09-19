@@ -7,7 +7,7 @@
 
     `npm start` (listen to port 3000 default)
     
-### this information is probably outdated, check the desired route file for more info on endpoints
+### check the desired route file for more info on endpoints
 
 - endpoints
   - users
