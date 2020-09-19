@@ -20,7 +20,7 @@ class Posts {
     }
 
     getAll(){
-        return this.db.ref('/Posts/').orderByChild("name")
+        return this.db.ref('/Posts/').orderByChild("title")
             .once('value').then(snapshot => snapshot.val());
     }
 

@@ -1,50 +1,38 @@
 const firebase = require('./index')
 
 class Comments {
-    async create() {
-        let newCommentsKey = firebase.database().ref("/Comments").push().key;
-        let newComments_idKey = firebase.database().ref("/Comments/id").push().key;
 
-        let comment = {
-            id: newComments_idKey,
-            content: ""
+    constructor() {
+        this.db = firebase.database()
+    }
+
+    async create(content, user_id) {
+        const newKey = firebase.database().ref("/Comments").push().key;
+
+        const comment = {
+            user_id,
+            content,
+            timestamp: Date.now()
         }
-        let updates = {};
-        updates["/Comments/" + newCommentsKey] = comment;
-        // updates['/user-Posts/' + uid + '/' + newPostsKey] = post;
 
-        const res = await firebase
-        .database()
-        .ref()
-        .update(updates, function (error) {
-        if (error) {
-            // The write failed...
+        const updates = {};
+        updates["/Comments/" + newKey] = comment;
 
-        } else {
-            // Data saved successfully!
+        return this.db.ref().update(updates);
+    }
 
-        }
-        });
-        return res;
+    async createPost(){
 
     }
 
-    // Get all comments
-    async getAll(){
-        const res = await realtimeDatabase.ref('/comments/').orderByChild("name").once('value').then(function (snapshot) {
-            console.log(retrievedCommunities);
-            let retrievedCommunities = snapshot.val();
+    getAll(){
+        return this.db.ref('/Comments/').orderByChild('timestamp')
+            .once('value').then(snapshot => snapshot.val());
+    }
 
-            // let descendingCommunities = [];
-            // For descending order
-            // for (let key in retrievedCommunities){
-            //     descendingCommunities.unshift(retrievedCommunities[key]);
-            // }
-            // return descendingCommunities;
-
-            return retrievedCommunities;
-        });
-        return res;
+    get(id){
+        return this.db.ref('/Comments/' + id)
+            .once('value').then(snapshot => snapshot.val());
     }
 }
 
