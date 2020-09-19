@@ -22,8 +22,10 @@
       - all communities
     - get `/communities/:id`
     - get `/communities/:id/posts`
-      - get all posts for this community
+
+      - get all posts ***(these are full posts, not IDs! so call directly, no need looping)*** for this community
     - post {username, title, description, content, topic, symptoms} `/communities/:id/posts`
+
       - add a new post to the community, symptoms are custom symptoms a user sets for the post, whereas a community's pinned post has static symptoms tied with it
 
   - comments
