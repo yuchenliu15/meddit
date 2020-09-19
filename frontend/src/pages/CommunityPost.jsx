@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Grid, Fade, Button, makeStyles, Typography, Box, CardContent, Card, Divider} from '@material-ui/core';
 import Post from '../components/Post';
 import Comments from '../components/CommentSection';
+import CommentCreate from '../components/CommentCreate';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -48,6 +49,9 @@ const CommunityPost = (props) => {
                             <div className = {classes.post}>
                                 <Post></Post>
                             </div>
+                        </Grid>
+                        <Grid item>
+                            <CommentCreate></CommentCreate>
                         </Grid>
                         <Divider />
                         <Grid item>
