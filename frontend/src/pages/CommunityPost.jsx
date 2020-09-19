@@ -30,40 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const CommunityPost = (props) => {
     const classes = useStyles();
     return (
-        <div className = {classes.container}>
-            <Grid container direction = 'row' spacing = {0} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
-                <Grid xs={12} md={6} lg={7} xl={7} style={{marginLeft: '1rem', marginTop: '1rem', height: '80vmin'}}>
-                    <Grid container direction = 'column' spacing = {3}>
-                        <Grid item>
-                            <Card className = {classes.postCard}>
-                                <CardContent>
-                                    <Grid container direction = 'row' justify = 'space-between'>
-                                        <Grid item>
-                                            <Grid container direction = 'row' spacing = {2}>
-                                                <Grid item><Typography className = {classes.postTitle}><Box fontWeight = 'bold'>This is a post example</Box></Typography></Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item>
-                                            <Grid container direction = 'row' spacing = {2}>
-                                                <Grid item><Typography variant = 'subtitle2' className = {classes.cardLabel}></Typography></Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item>
-                                            <Grid container direction = 'row' spacing = {2}>
-                                                <Grid item><Typography variant = 'subtitle2' className = {classes.cardLabel}>Description: </Typography> </Grid>
-                                                <Grid item><Typography variant = 'subtitle2' className = {classes.content}>{props.content}</Typography></Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                        
-                    </Grid>
-                </Grid>
-            </Grid>
-
-        </div>
+        <Typography>Community Post</Typography>
     )
 }
 
