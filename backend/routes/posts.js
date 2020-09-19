@@ -4,6 +4,7 @@ const Posts = require('../model/Posts')
 const post = new Posts();
 
 
+
 router.get('/:id', function(req, res, next) {
   const id = req.params.id;
   if(!id)
@@ -24,12 +25,16 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   const content = req.body.content
   const title = req.body.title
+  const topic = req.body.topic
+
   if(!content)
     res.status(404).end('missing content');
   if(!title)
     res.status(404).end('missing title');
+  if(!topic)
+    res.status(404).end('missing topic');
   
-  post.create(content, title)
+  post.create(content, title, topic)
     .then(() => res.status(200).end())
     .catch(e => res.status(200).send(e.code))
 

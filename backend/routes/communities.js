@@ -3,6 +3,17 @@ const router = express.Router();
 const Communities = require('../model/Communities')
 const community = new Communities();
 
+router.get('/:id/posts', function(req, res, next) {
+  // const id = req.params.id;
+  // if(!id)
+  //   res.status(404).end('missing id');
+  
+  // post.get(id)
+  //   .then(data => res.status(200).send(data))
+  //   .catch(e => res.status(200).send(e.code))
+
+});
+
 
 // The community page for this community
 router.get('/:id', function(req, res, next) {

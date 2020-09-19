@@ -33,6 +33,10 @@ class Communities {
         return this.db.ref('/Communities/' + id)
             .once('value').then(snapshot => snapshot.val());
     }
+
+    getPosts(id){
+        
+    }
 }
 
 module.exports = Communities;

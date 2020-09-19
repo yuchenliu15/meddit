@@ -26,5 +26,4 @@ app.use('/communities', communitiesRouter);
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
 
-
 module.exports = app;
