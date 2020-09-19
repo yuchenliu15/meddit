@@ -3,13 +3,10 @@ const router = express.Router();
 const Posts = require('../model/Posts')
 var PostsTable = new Posts();
 
-router.param('id', function(req, res, next, id) {
-  return next();
-});
-
 // A single post
 // TO DO: add /communities/id/ before /posts
-router.get('/posts/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
+  const id = req.params.id
   res.send(PostsTable.get(id));
 });
 
