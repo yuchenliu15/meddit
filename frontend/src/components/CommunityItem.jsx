@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
         color: '#334D6E',
     },
     symptoms: {
+        color: '#fff',
         background: '#9066FF',
         padding: '3px 6px 3px 6px',
         borderRadius: '5px',
