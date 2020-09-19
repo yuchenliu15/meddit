@@ -22,6 +22,18 @@ class Users {
         }
     }
 
+    addComment(username){
+        return async (commentID) => {
+            const before = await this.get(username);
+            const beforeComments = before.comments ? before.comments: [];
+    
+            before.comments = [...beforeComments, commentID]
+            const updates = {};
+            updates["/Users/" + username] = before;
+            return await this.db.ref().update(updates);
+        }
+    }
+
     async createRecord(username) {
         const user = {
             name: username
