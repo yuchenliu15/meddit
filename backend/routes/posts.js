@@ -12,20 +12,20 @@ router.get('/:id/comments', async function(req, res, next) {
   const id = req.params.id;
   if(!id)
     res.status(404).end('missing id');
-  
-  const communityInfo = await community.get(id);
-  const postIDs = communityInfo.posts;
-  const posts = [];
-  for(const id of postIDs) {
-    const currentPost = await post.get(id);
-    if(currentPost) {
-      currentPost['id'] = id
-      posts.push(currentPost)
+
+  const postInfo = await post.get(id);
+  const commentIDs = postInfo.comments;
+  const comments = [];
+
+  for(const id of commentIDs) {
+    const currentComment = await comment.get(id);
+    if(currentComment) {
+      currentComment['id'] = id
+      comments.push(currentComment)
     }
   }
 
-  res.status(200).send(posts)
-
+  res.status(200).send(comments)
 });
 
 router.post('/:id/comments', async function(req, res, next) {
