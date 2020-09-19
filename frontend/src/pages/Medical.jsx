@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import SymptomLog from '../components/medical/SymptomLog';
 import {Grid,Typography, makeStyles, Box, Divider, GridList, Card, CardContent} from '@material-ui/core';
+import { useCookies } from 'react-cookie';
+import axios from 'axios'
 
 import Image from '../assets/background.svg';
 
@@ -25,6 +27,23 @@ const useStyles = makeStyles((theme) => ({
 
 const Medical = (props) => {
     const classes = useStyles();
+
+    //eample to use auth
+    const [token, setToken] = useCookies(['auth_token']);
+    useEffect(() => {
+        axios.get('http://localhost:3000/communities', {
+            headers: {
+                Authorization: token.auth_token
+            }
+        })
+            .then(res => {
+                console.log(res)
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    }, [])
+
     return (
         <div className = {classes.container}>
             <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
