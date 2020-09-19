@@ -7,7 +7,13 @@ class Users {
             .createUserWithEmailAndPassword(
                 username, password
             );
+    }
 
+    auth(username,  password) {
+        return firebase.auth().signInWithEmailAndPassword(
+            username,
+            password
+        );
     }
 }
 

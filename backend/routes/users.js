@@ -14,8 +14,13 @@ router.post('/create', async function(req, res, next) {
   
 })
 
-router.post('/auth', function(req, res, next) {
-
+router.post('/login', function(req, res, next) {
+  const username = req.body.username
+  const password = req.body.password
+  
+  user.auth(username, password)
+    .then(() => res.status(200).end())
+    .catch(e => res.status(400).end(e.code))
 })
 
 module.exports = router;
