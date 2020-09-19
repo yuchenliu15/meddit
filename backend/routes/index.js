@@ -1,42 +1,34 @@
 const express = require('express');
 const router = express.Router();
 
+const firebase = require('../model/index');
+
+const Users = require('../model/Users')
+const Communities = require('../model/Communities')
+const Posts = require('../model/Posts')
+const Comments = require('../model/Comments')
+
+
+
+
+
+// NOTE: These all create new records
+// const CommunitiesTable = new Communities();
+// CommunitiesTable.create();
+// const PostsTable = new Posts();
+// PostsTable.create();
+// const CommentsTable = new Comments();
+// CommentsTable.create();
+
+// TO DO: this one doesn't work
+// const UsersTable = new Users();
+// UsersTable.create();
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
-  writeUser();
+  
+
 });
-
-
-
-function writeUser() {
-  // Get a key for a new Post.
-  let newUsersKey = firebase.database().ref("/Users").push().key;
-  let newUsers_idKey = firebase.database().ref("/Users/id").push().key;
-
-
-  let user = {
-    id: newUsers_idKey,
-    password: "hiiiii",
-    communityIDs: ["8128937192392198", "aldjnkanwkjekawnjke"]
-  }
-  // Write the new post's data simultaneously in the posts list (and the user's post list).
-  let updates = {};
-  updates["/Users/" + newUsersKey] = user;
-  // updates['/user-projects/' + uid + '/' + newPostKey] = project;
-
-  return firebase
-    .database()
-    .ref()
-    .update(updates, function (error) {
-      if (error) {
-        // The write failed...
-
-      } else {
-        // Data saved successfully!
-
-      }
-    });
-}
 
 module.exports = router;

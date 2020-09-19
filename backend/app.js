@@ -6,6 +6,8 @@ const { authenticateToken } = require('./middleware/auth')
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const communitiesRouter = require('./routes/Communities');
+
 
 const app = express();
 app.use(authenticateToken)
@@ -17,5 +19,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/communities/', communitiesRouter);
+app.use('/communities/:id', communitiesRouter);
+
+
 
 module.exports = app;

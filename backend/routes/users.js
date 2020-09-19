@@ -3,6 +3,7 @@ const router = express.Router();
 const Users = require('../model/Users');
 const user = new Users();
 
+
 router.post('/create', async function(req, res, next) {
   const username = req.body.username
   const password = req.body.password
@@ -28,5 +29,6 @@ router.post('/login', function(req, res, next) {
       console.log(e)
     })
 })
+
 
 module.exports = router;
