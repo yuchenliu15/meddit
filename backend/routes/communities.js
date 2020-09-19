@@ -7,24 +7,26 @@ const community = new Communities();
 const post = new Posts();
 const user = new Users()
 
-router.get('/:id/posts', async function(req, res, next) {
-  const id = req.params.id;
-  if(!id)
-    res.status(404).end('missing id');
+// Create/update a community
+router.post('/', function(req, res, next) {
+  const name = req.body.name
+  const description = req.body.description
+  const posts = req.body.posts ? req.body.posts: []
+  const pinnedPost = req.body.pinnedPost ? req.body.pinnedPost: []
+  const defaultSymptoms = req.body.defaultSymptoms ? req.body.defaultSymptoms: []
 
-  
-  const communityInfo = await community.get(id);
-  const postIDs = communityInfo.posts;
-  const posts = [];
-  for(const id of postIDs) {
-    const currentPost = await post.get(id);
-    posts.push(currentPost)
-  }
+  if(!name)
+    res.status(404).end('missing name');
+  if(!description)
+    res.status(404).end('missing description');
 
-  res.status(200).send(posts)
+  community.create(name, description, posts, pinnedPost, defaultSymptoms)
+    .then(() => res.status(200).end())
+    .catch(e => res.status(400).send(e.code))
 
 });
 
+// Create/update a post for a community
 router.post('/:id/posts', async function(req, res, next) {
   const id = req.params.id;
   if(!id)
@@ -56,8 +58,31 @@ router.post('/:id/posts', async function(req, res, next) {
     .catch(e => res.status(400).send(e.code))
 });
 
+// Get all posts + community info for community
+router.get('/:id/posts', async function(req, res, next) {
+  const id = req.params.id;
+  if(!id)
+    res.status(404).end('missing id');
 
-// The community page for this community
+  
+  const communityInfo = await community.get(id);
+  const postIDs = communityInfo.posts;
+  const posts = [];
+  for(const id of postIDs) {
+    const currentPost = await post.get(id);
+    posts.push(currentPost)
+  }
+
+  res.status(200).send(posts)
+
+});
+
+
+
+
+
+
+// Get community info
 router.get('/:id', function(req, res, next) {
   const id = req.params.id;
   if(!id)
@@ -69,29 +94,11 @@ router.get('/:id', function(req, res, next) {
 
 });
 
-// All communities for this user
+// Get all communities period
 router.get('/', function(req, res, next) {
   community.getAll()
     .then(data => res.status(200).send(data))
     .catch(e => res.status(400).send(e.code))
-});
-
-router.post('/', function(req, res, next) {
-  const name = req.body.name
-  const description = req.body.description
-  const posts = req.body.posts ? req.body.posts: []
-  const pinnedPost = req.body.pinnedPost ? req.body.pinnedPost: []
-  const defaultSymptoms = req.body.defaultSymptoms ? req.body.defaultSymptoms: []
-
-  if(!name)
-    res.status(404).end('missing name');
-  if(!description)
-    res.status(404).end('missing description');
-
-  community.create(name, description, posts, pinnedPost, defaultSymptoms)
-    .then(() => res.status(200).end())
-    .catch(e => res.status(400).send(e.code))
-
 });
 
 module.exports = router;
