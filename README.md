@@ -29,8 +29,8 @@
       - all comments
     - get `/comments/:id`
   - posts
-    - post {title, description, content, topic} `/posts/`
-      - create a new post
+    - post {title, description, content, topic, symptoms} `/posts/`
+      - create a new post, symptoms are custom symptoms a user sets for the post, whereas a community's pinned post has static symptoms tied with it
     - get `/posts/`
       - all posts
     - get `/posts/:id`
