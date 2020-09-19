@@ -44,6 +44,24 @@ const useStyles = makeStyles((theme) => ({
 const Community = (props) => {
     const classes = useStyles();
     const [activeTopic, setActiveTopic] = useState('all');
+
+    useEffect(() => {
+        fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ', {
+            method: 'GET',
+            headers: {
+                'Accept' : 'application/json',
+
+            }})
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+
+            },
+            (error) => {
+                console.log(error);
+            });
+    }, []);
+
     return (
         <div className = {classes.container}>
             <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
