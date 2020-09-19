@@ -22,12 +22,25 @@ const useStyles = makeStyles((theme) => ({
     Divider: {
         marginTop: '1rem',
         marginBottom: '1rem',
+    },
+    filter: {
+        padding: '.2rem 1rem .2rem 1rem',
+        boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.08)',
+        borderRadius: '4px',
+    },
+    activeFilter: {
+        background: '#9066FF',
+        padding: '.2rem 1rem .2rem 1rem',
+        boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.08)',
+        borderRadius: '4px',
+        color: '#fff',
     }
     
-  }));
+}));
 
 const Community = (props) => {
     const classes = useStyles();
+    const [activeTopic, setActiveTopic] = useState('all');
     return (
         <div className = {classes.container}>
             <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
@@ -42,7 +55,15 @@ const Community = (props) => {
                     <Grid item>
                         <PostCreate></PostCreate>
                     </Grid>
-                    <Divider className = {classes.Divider} />
+                    <Grid item>
+                        <Grid container direction = 'row' spacing = {2} alignContent = 'stretch' alignItems = 'stretch' >
+                            <Grid item><Typography>Topics: </Typography></Grid> 
+                            <Grid item><Typography className = {(activeTopic === 'all') ? classes.activeFilter : classes.filter}>All</Typography></Grid>
+                            <Grid item><Typography className = {classes.filter}>Discussion</Typography></Grid>
+                            <Grid item><Typography className = {classes.filter}>Reccomedations</Typography></Grid>
+                            <Grid item><Typography className = {classes.filter}>Doctors</Typography></Grid>
+                        </Grid>
+                    </Grid> 
                     <Grid item><CommunityItem title = "this is an example of a post" community = "/flu" content = "sajhdjkahdskjhadsjkhasdkjasdhkjashd adhasdjhasdkhasd adsashdjasdh asda ahsdjh sdja dahsdjahsd jasd ahj"></CommunityItem> </Grid>
                     <Grid item><CommunityItem title = "this is an example of a post" community = "/flu" content = "sajhdjkahdskjhadsjkhasdkjasdhkjashd adhasdjhasdkhasd adsashdjasdh asda ahsdjh sdja dahsdjahsd jasd ahj"></CommunityItem> </Grid>
                     <Grid item><CommunityItem title = "this is an example of a post" community = "/flu" content = "sajhdjkahdskjhadsjkhasdkjasdhkjashd adhasdjhasdkhasd adsashdjasdh asda ahsdjh sdja dahsdjahsd jasd ahj"></CommunityItem> </Grid>
