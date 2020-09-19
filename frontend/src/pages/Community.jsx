@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import CommunityItem from '../components/CommunityItem';
+import CommunityItem from '../components/community/CommunityItem';
 import {Grid, Typography, makeStyles, Box, Divider} from '@material-ui/core';
-import PostCreate from '../components/PostCreate';
+import PostCreate from '../components/community/PostCreate';
 
 import Image from '../assets/background.svg';
 

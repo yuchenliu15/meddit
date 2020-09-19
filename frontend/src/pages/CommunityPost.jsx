@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {Grid, Fade, Button, makeStyles, Typography, Box, CardContent, Card, Divider} from '@material-ui/core';
-import Post from '../components/Post';
-import Comments from '../components/CommentSection';
-import CommentCreate from '../components/CommentCreate';
+import Post from '../components/community/Post';
+import Comments from '../components/community/CommentSection';
+import CommentCreate from '../components/community/CommentCreate';
 
 import Image from '../assets/background.svg';
 
