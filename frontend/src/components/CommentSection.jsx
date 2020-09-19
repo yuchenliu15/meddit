@@ -11,7 +11,15 @@ const CommentSection = (props) => {
     const classes = useStyles();
     
     return (
-        <Typography>Hi </Typography>
+        <Grid container direction = 'column'>
+            <Grid item><Comment></Comment></Grid>
+            <Grid item><Comment></Comment></Grid>
+            <Grid item><Comment></Comment></Grid>
+            <Grid item><Comment></Comment></Grid>
+            <Grid item><Comment></Comment></Grid>
+            <Grid item><Comment></Comment></Grid>
+        </Grid>
+
     )
 }
 

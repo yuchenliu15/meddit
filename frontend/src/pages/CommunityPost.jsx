@@ -39,6 +39,14 @@ const useStyles = makeStyles((theme) => ({
         padding: '3px 6px 3px 6px',
         borderRadius: '5px',
     },
+    topBar: {
+        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+        background: '#9066FF',
+        padding: '1rem 3rem',
+        borderRadius: '4px',
+        color: '#fff',
+    }
+
 }));
 
 const CommunityPost = (props) => {
@@ -48,6 +56,14 @@ const CommunityPost = (props) => {
             <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
                 <Grid item xs ={12} mg = {6} lg ={7} xl = {7} style = {{marginLeft: '1rem', marginTop: '1rem', height: '80vmin', width: '100%'}}>
                     <Grid container direction = 'column' spacing = {3}>
+                        <Grid item>
+                            <div className = {classes.topBar}>
+                                <Grid container = 'row' spacing = {2}  justify="space-between">
+                                    <Grid item><Typography variant = 'subtitle1'>/Flu - What should I do if I have the Flu? </Typography> </Grid>
+                                    <Grid item><Typography variant = 'subtitle1'>X Close</Typography></Grid> 
+                                </Grid>
+                            </div>
+                        </Grid>
                         <Grid item>
                             <div className = {classes.post}>
                                 <Post></Post>
