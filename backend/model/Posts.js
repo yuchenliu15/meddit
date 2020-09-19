@@ -6,7 +6,7 @@ class Posts {
         this.db = firebase.database()
     }
 
-    async create(content, title, topic, description, symptoms, callback) {
+    async create(content, title, topic, description, symptoms, communityCallback, userCallback) {
         const newKey = firebase.database().ref("/Posts").push().key;
 
         const post = {
@@ -20,7 +20,8 @@ class Posts {
         const updates = {};
         updates["/Posts/" + newKey] = post;
 
-        await callback(newKey)
+        await communityCallback(newKey)
+        await userCallback(newKey)
 
         return this.db.ref().update(updates);
     }

@@ -10,6 +10,18 @@ class Users {
         this.db = firebase.database()
     }
 
+    addPost(username){
+        return async (postID) => {
+            const before = await this.get(username);
+            const beforePosts = before.posts ? before.posts: [];
+    
+            before.posts = [...beforePosts, postID]
+            const updates = {};
+            updates["/Users/" + username] = before;
+            return await this.db.ref().update(updates);
+        }
+    }
+
     async createRecord(username) {
         const user = {
             name: username
@@ -35,7 +47,7 @@ class Users {
 
     async update(username, data) {
         const before = await this.get(username);
-        console.log(data)
+
         const dataPosts = data.posts ? data.posts: [];
         const beforePosts = before.posts ? before.posts: [];
         const dataComments = data.comments ? data.comments: [];

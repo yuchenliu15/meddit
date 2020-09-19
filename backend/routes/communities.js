@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Communities = require('../model/Communities');
 const Posts = require('../model/Posts');
+const Users = require('../model/Users');
 const community = new Communities();
 const post = new Posts();
+const user = new Users()
 
 router.get('/:id/posts', async function(req, res, next) {
   const id = req.params.id;
@@ -28,12 +30,15 @@ router.post('/:id/posts', async function(req, res, next) {
   if(!id)
     res.status(404).end('missing id');
 
+  const username = req.body.username
   const content = req.body.content
   const title = req.body.title
   const topic = req.body.topic
   const description = req.body.description
   const symptoms = req.body.symptoms
 
+  if(!username)
+    res.status(404).end('missing username');
   if(!content)
     res.status(404).end('missing content');
   if(!title)
@@ -46,7 +51,7 @@ router.post('/:id/posts', async function(req, res, next) {
     res.status(404).end('missing symptoms');
 
 
-  post.create(content, title, topic, description, symptoms, community.addPost(id))
+  post.create(content, title, topic, description, symptoms, community.addPost(id), user.addPost(username.replace(/\./g, '')))
     .then(() => res.status(200).end())
     .catch(e => res.status(400).send(e.code))
 });
