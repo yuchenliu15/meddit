@@ -43,13 +43,13 @@ const PostCreate = (props) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: {
+                body: JSON.stringify({
                     username: 'doctordoc@gmail.com',
                     content: `${text}`,
                     title: `${title}`,
                     topic: 'All',
                     description: `${description}`,
-                }
+                })
             })
             .then((res) => res.json())
             .then((res) => {
