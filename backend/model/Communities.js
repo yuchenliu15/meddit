@@ -22,8 +22,16 @@ class Communities {
         return this.db.ref().update(updates);
     }
 
-    async createPost(){
-
+    addPost(communityID){
+        return async (postID) => {
+            const before = await this.get(communityID);
+            const beforePosts = before.posts ? before.posts: [];
+    
+            before.posts = [...beforePosts, postID]
+            const updates = {};
+            updates["/Communities/" + communityID] = before;
+            return await this.db.ref().update(updates);
+        }
     }
 
     getAll(){
@@ -34,10 +42,6 @@ class Communities {
     get(id){
         return this.db.ref('/Communities/' + id)
             .once('value').then(snapshot => snapshot.val());
-    }
-
-    getPosts(id){
-        
     }
 }
 
