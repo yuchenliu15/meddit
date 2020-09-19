@@ -13,9 +13,9 @@ const commentsRouter = require('./routes/comments');
 
 
 const app = express();
-// app.use(authenticateToken)
+app.use(authenticateToken)
 app.use(logger('dev'));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));

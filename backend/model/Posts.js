@@ -1,45 +1,32 @@
 const firebase = require('./index')
 
 class Posts {
-    async create() {
-        let newPostsKey = firebase.database().ref("/Posts").push().key;
-        let newPosts_idKey = firebase.database().ref("/Posts/id").push().key;
 
-        let post = {
-            id: newPosts_idKey,
-            commentIDs: "",
-            title: "",
-            summary: "",
-            content: "",
-            mediaURL: ""
-        }
-        let updates = {};
-        updates["/Posts/" + newPostsKey] = post;
-        // updates['/user-Posts/' + uid + '/' + newPostsKey] = post;
-
-        const res = await firebase
-        .database()
-        .ref()
-        .update(updates, function (error) {
-        if (error) {
-            // The write failed...
-
-        } else {
-            // Data saved successfully!
-
-        }
-        });
-        return res;
+    constructor() {
+        this.db = firebase.database()
     }
 
-    // Get one post
-    async get(id){
-        const res = await realtimeDatabase.ref('/posts/' + id).once('value').then(function (snapshot) {
-            let retrievedPost = snapshot.val();
-      
-            return retrievedPost;
-        });
-        return res;
+    async create(content, title) {
+        const newCommunitiesKey = firebase.database().ref("/Posts").push().key;
+
+        const post = {
+            content: content,
+            title: title,
+        }
+        const updates = {};
+        updates["/Posts/" + newCommunitiesKey] = post;
+
+        return this.db.ref().update(updates);
+    }
+
+    getAll(){
+        return this.db.ref('/Posts/').orderByChild("title")
+            .once('value').then(snapshot => snapshot.val());
+    }
+
+    get(id){
+        return this.db.ref('/Posts/' + id)
+            .once('value').then(snapshot => snapshot.val());
     }
 }
 

@@ -6,6 +6,55 @@ const secretToken = `09f26e402586e2faa8da4c98a35f1
 
 class Users {
 
+    constructor() {
+        this.db = firebase.database()
+    }
+
+    async createRecord(username) {
+        const user = {
+            name: username
+        };
+        const updates = {};
+        updates["/Users/" + username.replace(/\./g,'')] = user;
+        return await this.db.ref().update(updates);
+    }
+
+    async createPost(){
+
+    }
+
+    getAll(){
+        return this.db.ref('/Users/').orderByChild("name")
+            .once('value').then(snapshot => snapshot.val());
+    }
+
+    get(id){
+        return this.db.ref('/Users/' + id)
+            .once('value').then(snapshot => snapshot.val());
+    }
+
+    async update(username, data) {
+        const before = await this.get(username);
+        console.log(data)
+        const dataPosts = data.posts ? data.posts: [];
+        const beforePosts = before.posts ? before.posts: [];
+        const dataComments = data.comments ? data.comments: [];
+        const beforeComments = before.comments ? before.comments: [];
+        const dataCommunities = data.communities ? data.communities: [];
+        const beforeCommunities = before.communities ? before.communities: [];
+
+        const user = {
+            name: username,
+            communities: [...dataCommunities, ...beforeCommunities],
+            comments: [...dataComments, ...beforeComments],
+            posts: [...dataPosts, ...beforePosts]
+        };
+        const updates = {};
+        updates["/Users/" + username] = user;
+        return await this.db.ref().update(updates);
+
+    }
+
     create(username, password) {
         return firebase.auth()
             .createUserWithEmailAndPassword(
@@ -26,37 +75,3 @@ class Users {
 }
 
 module.exports = Users;
-// ****************************************************
-// NOTE: Might need the fields from here in the future
-// ****************************************************
-// function writeUser() {
-//     // Get a key for a new Post.
-//     let newUsersKey = firebase.database().ref("/Users").push().key;
-//     let newUsers_idKey = firebase.database().ref("/Users/id").push().key;
-  
-  
-//     let user = {
-//       id: newUsers_idKey,
-//       password: "example password",
-//       communityIDs: ["example", "example1"],
-//       postIDs: ["example", "example1"]
-//     }
-//     // Write the new post's data simultaneously in the posts list (and the user's post list).
-//     let updates = {};
-//     updates["/Users/" + newUsersKey] = user;
-//     // updates['/user-projects/' + uid + '/' + newPostKey] = project;
-  
-//     return firebase
-//       .database()
-//       .ref()
-//       .update(updates, function (error) {
-//         if (error) {
-//           // The write failed...
-  
-//         } else {
-//           // Data saved successfully!
-  
-//         }
-//       });
-// }
-  
