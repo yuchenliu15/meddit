@@ -7,7 +7,7 @@ const community = new Communities();
 const post = new Posts();
 const user = new Users()
 
-// Create/update a community
+// Create/update a community's info
 router.post('/', function(req, res, next) {
   const name = req.body.name
   const description = req.body.description
@@ -76,11 +76,6 @@ router.get('/:id/posts', async function(req, res, next) {
   res.status(200).send(posts)
 
 });
-
-
-
-
-
 
 // Get community info
 router.get('/:id', function(req, res, next) {
