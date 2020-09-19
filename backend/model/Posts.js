@@ -29,6 +29,18 @@ class Posts {
         return this.db.ref().update(updates);
     }
 
+    addComment(postID){
+        return async (commentID) => {
+            const before = await this.get(postID);
+            const beforePosts = before.comments ? before.comments: [];
+    
+            before.comments = [...beforePosts, commentID]
+            const updates = {};
+            updates["/Posts/" + postID] = before;
+            return await this.db.ref().update(updates);
+        }
+    }
+
     getAll(){
         return this.db.ref('/Posts/').orderByChild("title")
             .once('value').then(snapshot => snapshot.val());
