@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Box, Card, Typography, Grid, CardContent, makeStyles} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
 
 const CommunityItem = (props) => {
     const classes = useStyles();
+
+
     return (
         <Card className = {(props.active) ? classes.active:classes.postCard}>
             <CardContent>
@@ -50,13 +52,15 @@ const CommunityItem = (props) => {
                     <Grid item><Typography variant = 'subtitle2' className = {classes.content}>{props.content}</Typography></Grid>
                 </Grid>
                 <Grid container direction = "row" spacing = {2}>
-                    <Grid item><Typography variant = 'subtitle2'className = {classes.cardLabel}>{(props.active) ? 'Common Symptoms with Flu':'Symptoms:'} </Typography> </Grid>
-                    <Grid item><Typography variant = 'subtitle2' className = {classes.symptoms}>Cough</Typography></Grid>
-                    <Grid item><Typography variant = 'subtitle2' className = {classes.symptoms}>Fever</Typography></Grid>
-                    <Grid item><Typography variant = 'subtitle2' className = {classes.symptoms}>Nausea</Typography></Grid>
+                    <Grid item><Typography variant = 'subtitle2'className = {classes.cardLabel}>{(props.symptoms != null) ? 'Common Symptoms':''} </Typography> </Grid>
+                    {(props.symptoms != null) ?
+                        props.symptoms.map((select , index ) => {
+                        return (
+                            <Grid item><Typography variant = 'subtitle2' className = {classes.symptoms}>{select.name}</Typography></Grid>
+                        )
+                    }) : ' '}
                     
-                </Grid>
-                
+                </Grid>                
             </CardContent>
         </Card>
 
