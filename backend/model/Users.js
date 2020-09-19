@@ -1,9 +1,9 @@
-import firebase from './index'
+const firebase = require('./index')
 
 class Users {
-    constructor() {
-        this.username = 'ahha@dsfds.sdf'
-        this.password = 'sdfsdfdsfsd'
+    constructor(username, password) {
+        this.username = username
+        this.password = password
     }
 
     async create() {
@@ -15,7 +15,6 @@ class Users {
         return res;
 
     }
-
 }
 
-export default Users;
+module.exports = Users;
