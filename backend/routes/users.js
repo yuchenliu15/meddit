@@ -9,6 +9,7 @@ router.post('/create', async function(req, res, next) {
   const password = req.body.password
   
   user.create(username, password)
+    .then(() => { user.createRecord(username)})
     .then(() => res.status(200).end())
     .catch(e => res.status(400).end(e.code))
 
