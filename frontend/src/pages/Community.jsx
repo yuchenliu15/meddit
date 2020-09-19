@@ -53,6 +53,9 @@ const Community = (props) => {
                         </div>
                     </Grid>
                     <Grid item>
+                        <Grid item><CommunityItem title = "Flu Information and Stuff" community = "auto generated" content = "Basic information about the flu" active = {true}></CommunityItem></Grid>
+                    </Grid> 
+                    <Grid item>
                         <PostCreate></PostCreate>
                     </Grid>
                     <Grid item>

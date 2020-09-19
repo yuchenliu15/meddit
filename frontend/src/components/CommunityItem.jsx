@@ -7,6 +7,12 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         marginBottom: '0.5em',
     },
+    active: {
+        border: '3px solid #9066FF',
+        boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.08)',
+        width: '100%',
+        marginBottom: '0.5em',
+    },
     heading: {
         color: '#334D6E',
     },
@@ -27,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const CommunityItem = (props) => {
     const classes = useStyles();
     return (
-        <Card className = {classes.postCard}>
+        <Card className = {(props.active) ? classes.active:classes.postCard}>
             <CardContent>
                 <Grid container direction = "row" justify = 'space-between'>
                     <Grid item>
@@ -44,10 +50,11 @@ const CommunityItem = (props) => {
                     <Grid item><Typography variant = 'subtitle2' className = {classes.content}>{props.content}</Typography></Grid>
                 </Grid>
                 <Grid container direction = "row" spacing = {2}>
-                    <Grid item><Typography variant = 'subtitle2'className = {classes.cardLabel}>Symptoms: </Typography> </Grid>
+                    <Grid item><Typography variant = 'subtitle2'className = {classes.cardLabel}>{(props.active) ? 'Common Symptoms with Flu':'Symptoms:'} </Typography> </Grid>
                     <Grid item><Typography variant = 'subtitle2' className = {classes.symptoms}>Cough</Typography></Grid>
                     <Grid item><Typography variant = 'subtitle2' className = {classes.symptoms}>Fever</Typography></Grid>
                     <Grid item><Typography variant = 'subtitle2' className = {classes.symptoms}>Nausea</Typography></Grid>
+                    
                 </Grid>
                 
             </CardContent>
