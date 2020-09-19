@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import SymptomLog from '../components/medical/SymptomLog';
-import {Grid,Typography, makeStyles, Box, Divider} from '@material-ui/core';
+import {Grid,Typography, makeStyles, Box, Divider, GridList, Card, CardContent} from '@material-ui/core';
 
 import Image from '../assets/background.svg';
 
@@ -35,12 +35,19 @@ const Medical = (props) => {
                                 <Typography variant = 'h5'><Box fontWeight = 'bold'>Welcome to Meddit, Name </Box></Typography>
                                 <Typography variant = 'subtitle2' style = {{opacity: '.7'}}>Please enter how you are feeling so we can add you to a community of people who feel the same way</Typography>
                             </div>
-                        </Grid>
+                        </Grid> 
                         <Grid item>
                             <SymptomLog></SymptomLog>
                         </Grid>
+                        <Grid item>
+                            <Typography variant = 'h6'><Box fontWeight = 'bold'>Some Communities You might want to Join</Box></Typography>
+                        </Grid>
+                        <Grid item>
+                            <GridList cols = {3} spacing = {1} cellHeight = 'auto'>
+
+                            </GridList>
+                        </Grid>
                     </Grid>
-                    
                 </Grid>
             </Grid>
         </div>
