@@ -34,17 +34,37 @@ const PostCreate = (props) => {
     const classes = useStyles();
     const [title, setTitle] = useState('');
     const [text, setText] = useState('');
+    const [description, setDescription] = useState('');
 
     const onSubmit = () => {
         if(text != null | title != null){
-            console.log(text);
-            console.log(title);
+            fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: {
+                    username: 'doctordoc@gmail.com',
+                    content: `${text}`,
+                    title: `${title}`,
+                    topic: 'All',
+                    description: `${description}`,
+                }
+            })
+            .then((res) => res.json())
+            .then((res) => {
+                props.incrState();
+            },
+            (error) => {
+                console.log(error);
+            });
         }
     }
 
     const onCancel = () => {
         setTitle('');
         setText('');
+        setDescription('');
     }
 
     const handleTitleChange = (event) => {
@@ -52,6 +72,9 @@ const PostCreate = (props) => {
     }
     const handleTextChange = (event) => {
         setText(event.target.value);
+    }
+    const handleDescChange = (event) => {
+        setDescription(event.target.value);
     }
 
     return (
@@ -67,6 +90,16 @@ const PostCreate = (props) => {
                     margin = 'none'
                     value = {title}
                     onChange = {handleTitleChange}
+                />
+                <InputBase 
+                    className = {classes.textInput}
+                    multiline
+                    rows = {1}
+                    placeholder="Write your summary"
+                    fullWidth
+                    margin = 'none'
+                    value = {description}
+                    onChange = {handleDescChange}
                 />
                 <InputBase 
                     className = {classes.textInput}

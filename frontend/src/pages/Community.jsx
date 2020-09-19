@@ -43,12 +43,19 @@ const useStyles = makeStyles((theme) => ({
 
 const Community = (props) => {
     const classes = useStyles();
+    
+    const [render, setRender] = useState(0);
+    
     const [activeTopic, setActiveTopic] = useState('all');
     const [communityName, setCommunityName] = useState('');
     const [communityDescription, setCommunityDescription] = useState('');
     const [defaultSymptoms, setDefaultSymptoms] = useState([]);
 
     const [posts, setPosts] = useState();
+
+    const incrState = () => {
+        setRender(render + 1);
+    }
 
 
 
