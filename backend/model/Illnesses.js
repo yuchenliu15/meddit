@@ -10,7 +10,7 @@ class Illnesses {
         const newKey = firebase.database().ref("/Illnesses").push().key;
 
         const illness = {
-            user_id = user_id,
+            user_id: user_id,
             symptoms: symptoms,
             diagnoses: diagnoses,
             timestamp: Date.now(),

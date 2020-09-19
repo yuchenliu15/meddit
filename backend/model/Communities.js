@@ -6,15 +6,15 @@ class Communities {
         this.db = firebase.database()
     }
 
-    async create(name) {
+    async create(name, description, posts, pinnedPost, defaultSymptoms) {
         const newCommunitiesKey = firebase.database().ref("/Communities").push().key;
 
         const community = {
             name: name,
-            description: '',
-            posts: [],
-            pinnedPost: '',
-            defaultSymptoms: []
+            description: description,
+            posts: posts,
+            pinnedPost: pinnedPost,
+            defaultSymptoms: defaultSymptoms
         }
         const updates = {};
         updates["/Communities/" + newCommunitiesKey] = community;
