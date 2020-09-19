@@ -30,7 +30,16 @@ class Posts {
         }
         });
         return res;
+    }
 
+    // Get one post
+    async get(id){
+        const res = await realtimeDatabase.ref('/posts/' + id).once('value').then(function (snapshot) {
+            let retrievedPost = snapshot.val();
+      
+            return retrievedPost;
+        });
+        return res;
     }
 }
 
