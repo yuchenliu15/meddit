@@ -1,17 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {ThemeProvider, createMuiTheme, responsiveFontSizes, Typography} from '@material-ui/core';
+import {ThemeProvider, createMuiTheme, responsiveFontSizes, makeStyles, Typography, Grid} from '@material-ui/core';
 import './App.css';
+import CommunityItem from './components/CommunityItem';
+import Community from './pages/Community';
 
-let theme = createMuiTheme({
+const useStyles = makeStyles((theme) => ({
 
-});
+}));
 
 
-theme = responsiveFontSizes(theme);
 
 const App = (props) => {
+  const classes = useStyles();
   return (
-    <Typography>Hello World</Typography>
+    <Community></Community>
+    
   )
 }
 export default App;
