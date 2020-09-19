@@ -5,6 +5,7 @@ import CommunityItem from './components/community/CommunityItem';
 import CommunityPost from './pages/CommunityPost';
 import Community from './pages/Community';
 import Medical from './pages/Medical';
+import Singup from './pages/Signup'
 import {
   BrowserRouter as Router,
   Switch,
@@ -30,6 +31,9 @@ const App = (props) => {
           <Route path="/community">
             <Community></Community>
           </Route>
+          <Route path="/signup">
+            <Singup></Singup>
+          </Route>
           <Route path="/">
             <Medical></Medical>
           </Route>
@@ -40,3 +44,23 @@ const App = (props) => {
   )
 }
 export default App;
+
+// function PrivateRoute({ children, ...rest }) {
+//   return (
+//     <Route
+//       {...rest}
+//       render={({ location }) =>
+//         fakeAuth.isAuthenticated ? (
+//           children
+//         ) : (
+//           <Redirect
+//             to={{
+//               pathname: "/login",
+//               state: { from: location }
+//             }}
+//           />
+//         )
+//       }
+//     />
+//   );
+// }
