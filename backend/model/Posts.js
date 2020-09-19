@@ -6,7 +6,8 @@ class Posts {
         this.db = firebase.database()
     }
 
-    async create(content, title, topic, description, communityCallback, userCallback) {
+    async create(username, content, title, topic, description, symptoms, communityCallback, userCallback) {
+
         const newKey = firebase.database().ref("/Posts").push().key;
 
         const post = {
@@ -14,7 +15,10 @@ class Posts {
             description: description,
             content: content,
             topic: topic,
-            timestamp: Date.now()
+            symptoms: symptoms,
+            timestamp: Date.now(),
+            username: username
+
         }
         const updates = {};
         updates["/Posts/" + newKey] = post;
@@ -23,6 +27,18 @@ class Posts {
         await userCallback(newKey)
 
         return this.db.ref().update(updates);
+    }
+
+    addComment(postID){
+        return async (commentID) => {
+            const before = await this.get(postID);
+            const beforePosts = before.comments ? before.comments: [];
+    
+            before.comments = [...beforePosts, commentID]
+            const updates = {};
+            updates["/Posts/" + postID] = before;
+            return await this.db.ref().update(updates);
+        }
     }
 
     getAll(){

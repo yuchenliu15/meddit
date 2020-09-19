@@ -11,14 +11,25 @@ const user = new Users()
 router.post('/', function(req, res, next) {
   const name = req.body.name
   const description = req.body.description
-  const posts = req.body.posts ? req.body.posts: []
   const pinnedPost = req.body.pinnedPost ? req.body.pinnedPost: []
   const defaultSymptoms = req.body.defaultSymptoms ? req.body.defaultSymptoms: []
+
 
   if(!name)
     res.status(404).end('missing name');
   if(!description)
     res.status(404).end('missing description');
+  
+  const communityInfo = await community.get(id);
+  const postIDs = communityInfo.posts;
+  const posts = [];
+  for(const id of postIDs) {
+    const currentPost = await post.get(id);
+    if(currentPost) {
+      currentPost['id'] = id
+      posts.push(currentPost)
+    }
+  }
 
   community.create(name, description, posts, pinnedPost, defaultSymptoms)
     .then(() => res.status(200).end())
@@ -53,7 +64,9 @@ router.post('/:id/posts', async function(req, res, next) {
   //   res.status(404).end('missing symptoms');
 
 
-  post.create(content, title, topic, description, community.addPost(id), user.addPost(username.replace(/\./g, '')))
+  post.create(username, content, title, topic, description, symptoms,
+     community.addPost(id), user.addPost(username.replace(/\./g, '')))
+
     .then(() => res.status(200).end())
     .catch(e => res.status(400).send(e.code))
 });

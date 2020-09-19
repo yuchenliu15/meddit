@@ -6,17 +6,20 @@ class Comments {
         this.db = firebase.database()
     }
 
-    async create(content, user_id) {
+    async create(username, content, postCallback, userCallback) {
         const newKey = firebase.database().ref("/Comments").push().key;
 
         const comment = {
-            user_id,
+            username,
             content,
             timestamp: Date.now()
         }
 
         const updates = {};
         updates["/Comments/" + newKey] = comment;
+
+        await postCallback(newKey)
+        await userCallback(newKey)
 
         return this.db.ref().update(updates);
     }

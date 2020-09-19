@@ -13,10 +13,8 @@
   - users
     - post {username, password} `/users/create`
     - post {username, password} `/users/login`
-    - put {communities(array), posts(array), comments(array)} `/users/:username`
-      - use this to add communities and stuff to user
     - get `/users/:username`
-      - user info
+      - user info, ***such as communities and posts***
   - communities
     - post {name} `/communities/`
     - get `/communities/`
@@ -29,20 +27,18 @@
 
       - add a new post to the community, symptoms are custom symptoms a user sets for the post, whereas a community's pinned post has static symptoms tied with it
 
-  - comments
-    - post {content, user_id} `/comments/`
-    - get `/comments/`
-      - all comments
-    - get `/comments/:id`
+
   - posts
     - post {title, description, content, topic} `/posts/`
       - create a new post
     - get `/posts/`
       - all posts
     - get `/posts/:id`
-
-    - illnesses
-
+    - get `/posts/:id/comments`
+      - get all comments under post with id
+    - post {username, content} `/posts/:id/comments`
+      - create comments under the post with id
+  
 
 - disable user auth
   - comment out line 16 `app.use(authenticateToken)` in backend/app.js
