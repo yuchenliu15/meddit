@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import CommunityItem from '../components/CommunityItem';
+import CommunityItem from '../components/community/CommunityItem';
 import {Grid, Typography, makeStyles, Box, Divider} from '@material-ui/core';
-import PostCreate from '../components/PostCreate';
+import PostCreate from '../components/community/PostCreate';
+
+import Image from '../assets/background.svg';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -11,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('lg')]: {
         padding: '1rem 1rem 1rem 1rem'
         },
+        backgroundImage: `url(${Image})`,
     },
     greetingsContainer: {
         boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',

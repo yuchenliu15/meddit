@@ -28,17 +28,18 @@ router.post('/', function(req, res, next) {
   const description = req.body.description
   const content = req.body.content
   const topic = req.body.topic
-  const symptoms = req.body.symptoms
 
 
   if(!content)
     res.status(404).end('missing content');
+  if(!description)
+    res.status(404).end('missing description');
   if(!title)
     res.status(404).end('missing title');
   if(!topic)
     res.status(404).end('missing topic');
   
-  post.create(title, description, content, topic, symptoms)
+  post.create(title, description, content, topic)
     .then(() => res.status(200).end())
     .catch(e => res.status(200).send(e.code))
 

@@ -9,6 +9,8 @@ const usersRouter = require('./routes/users');
 const communitiesRouter = require('./routes/communities');
 const postsRouter = require('./routes/posts');
 const commentsRouter = require('./routes/comments');
+const illnessesRouter = require('./routes/illnesses');
+
 
 
 
@@ -25,5 +27,7 @@ app.use('/users', usersRouter);
 app.use('/communities', communitiesRouter);
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);
+app.use('/illnesses', illnessesRouter);
+
 
 module.exports = app;

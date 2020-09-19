@@ -34,13 +34,14 @@
       - all comments
     - get `/comments/:id`
   - posts
-
+    - post {title, description, content, topic} `/posts/`
+      - create a new post
     - get `/posts/`
       - all posts
     - get `/posts/:id`
 
     - illnesses
-    
+
 
 - disable user auth
   - comment out line 16 `app.use(authenticateToken)` in backend/app.js

@@ -31,10 +31,6 @@ class Users {
         return await this.db.ref().update(updates);
     }
 
-    async createPost(){
-
-    }
-
     getAll(){
         return this.db.ref('/Users/').orderByChild("name")
             .once('value').then(snapshot => snapshot.val());
@@ -55,11 +51,21 @@ class Users {
         const dataCommunities = data.communities ? data.communities: [];
         const beforeCommunities = before.communities ? before.communities: [];
 
+        const dataBirthdate = data.birthdate;
+        const dataSex = data.sex;
+        const dataSymptoms = data.Symptoms;
+        const dataIllnesses = data.Illnesses;
+
+
         const user = {
             name: username,
             communities: [...dataCommunities, ...beforeCommunities],
             comments: [...dataComments, ...beforeComments],
-            posts: [...dataPosts, ...beforePosts]
+            posts: [...dataPosts, ...beforePosts],
+            birthdate: dataBirthdate,
+            sex: dataSex,
+            symptoms: dataSymptoms,
+            illnesses: dataIllnesses
         };
         const updates = {};
         updates["/Users/" + username] = user;
