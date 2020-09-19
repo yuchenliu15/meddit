@@ -17,7 +17,7 @@ const App = (props) => {
   return (
     // <CommunityPost></CommunityPost> 
     // <Community></Community>
-    <Medical></Medical>
+    <Community></Community>
     // <CommunityPost></CommunityPost>
     
   )
