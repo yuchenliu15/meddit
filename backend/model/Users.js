@@ -1,19 +1,14 @@
 const firebase = require('./index')
 
 class Users {
-    constructor(username, password) {
-        this.username = username
-        this.password = password
-    }
 
-    async create() {
+    async create(username, password) {
         const res = await firebase.auth()
             .createUserWithEmailAndPassword(
-                this.username, this.password
+                username, password
             );
 
         return res;
-
     }
 }
 
