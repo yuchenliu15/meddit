@@ -17,7 +17,17 @@ router.get('/:id/comments', async function(req, res, next) {
   const commentIDs = postInfo.comments;
   const comments = [];
 
-  for(const id of commentIDs) {
+
+  
+  // for(const id of commentIDs) {
+  //   const currentComment = await comment.get(id);
+  //   if(currentComment) {
+  //     currentComment['id'] = id
+  //     comments.push(currentComment)
+  //   }
+  // }
+
+  for (let id in commentIDs){
     const currentComment = await comment.get(id);
     if(currentComment) {
       currentComment['id'] = id
