@@ -37,5 +37,8 @@
       - all posts
     - get `/posts/:id`
 
+    - illnesses
+    
+
 - disable user auth
   - comment out line 16 `app.use(authenticateToken)` in backend/app.js
