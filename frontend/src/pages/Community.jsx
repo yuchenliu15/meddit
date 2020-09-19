@@ -48,6 +48,7 @@ const Community = (props) => {
             method: 'GET',
             headers: {
                 'Accept' : 'application/json',
+
             }})
             .then((res) => res.json())
             .then((res) => {
