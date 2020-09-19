@@ -29,14 +29,14 @@
       - all comments
     - get `/comments/:id`
   - posts
-    - post {title, description, content, topic, symptoms} `/posts/`
-      - create a new post, symptoms are custom symptoms a user sets for the post, whereas a community's pinned post has static symptoms tied with it
+    - post {title, description, content, topic} `/posts/`
+      - create a new post
     - get `/posts/`
       - all posts
     - get `/posts/:id`
 
     - illnesses
-    
+
 
 - disable user auth
   - comment out line 16 `app.use(authenticateToken)` in backend/app.js

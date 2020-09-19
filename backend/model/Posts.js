@@ -14,7 +14,6 @@ class Posts {
             description: description,
             content: content,
             topic: topic,
-            symptoms: symptoms,
             timestamp: Date.now()
         }
         const updates = {};
