@@ -6,7 +6,7 @@ class Posts {
         this.db = firebase.database()
     }
 
-    async create(content, title, topic, callback) {
+    async create(content, title, topic, description, symptoms, callback) {
         const newKey = firebase.database().ref("/Posts").push().key;
 
         const post = {

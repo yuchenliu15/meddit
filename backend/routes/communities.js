@@ -10,8 +10,16 @@ router.get('/:id/posts', async function(req, res, next) {
   if(!id)
     res.status(404).end('missing id');
 
-  const community = await community.get(id);
-  console.log(community.posts)
+  
+  const communityInfo = await community.get(id);
+  const postIDs = communityInfo.posts;
+  const posts = [];
+  for(const id of postIDs) {
+    const currentPost = await post.get(id);
+    posts.push(currentPost)
+  }
+
+  res.status(200).send(posts)
 
 });
 
@@ -23,6 +31,8 @@ router.post('/:id/posts', async function(req, res, next) {
   const content = req.body.content
   const title = req.body.title
   const topic = req.body.topic
+  const description = req.body.description
+  const symptoms = req.body.symptoms
 
   if(!content)
     res.status(404).end('missing content');
@@ -30,9 +40,13 @@ router.post('/:id/posts', async function(req, res, next) {
     res.status(404).end('missing title');
   if(!topic)
     res.status(404).end('missing topic');
+  if(!description)
+    res.status(404).end('missing description');
+  if(!symptoms)
+    res.status(404).end('missing symptoms');
 
 
-  post.create(content, title, topic, community.addPost(id))
+  post.create(content, title, topic, description, symptoms, community.addPost(id))
     .then(() => res.status(200).end())
     .catch(e => res.status(400).send(e.code))
 });
