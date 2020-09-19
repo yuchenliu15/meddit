@@ -14,3 +14,5 @@ const CommentSection = (props) => {
         <Typography>Hi </Typography>
     )
 }
+
+export default CommentSection;

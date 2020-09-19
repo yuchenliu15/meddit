@@ -4,6 +4,14 @@ import Post from '../components/Post';
 import Comments from '../components/CommentSection';
 
 const useStyles = makeStyles((theme) => ({
+    container: {
+        height: '230vh',
+        maxWidth: '100vw',
+        padding: '2rem 2rem 2rem 2rem',
+        [theme.breakpoints.down('lg')]: {
+        padding: '1rem 1rem 1rem 1rem'
+        },
+    },
     postCard: {
         boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.08)',
         width: '100%',
@@ -26,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         background: '#9066FF',
         padding: '3px 6px 3px 6px',
         borderRadius: '5px',
-    }
+    },
 }));
 
 const CommunityPost = (props) => {
@@ -34,10 +42,12 @@ const CommunityPost = (props) => {
     return (
         <div className = {classes.container}>
             <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
-                <Grid item xs ={12} mg = {6} lg ={7} xl = {7} style = {{marginLeft: '1rem', marginTop: '1rem', height: '80vmin'}}>
-                    <Grid container direciton = 'column' spacing = {3}>
+                <Grid item xs ={12} mg = {6} lg ={7} xl = {7} style = {{marginLeft: '1rem', marginTop: '1rem', height: '80vmin', width: '100%'}}>
+                    <Grid container direction = 'column' spacing = {3}>
                         <Grid item>
-                            <Post></Post>
+                            <div className = {classes.post}>
+                                <Post></Post>
+                            </div>
                         </Grid>
                         <Divider />
                         <Grid item>

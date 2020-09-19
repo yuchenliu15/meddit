@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
 const App = (props) => {
   const classes = useStyles();
   return (
-    <Community></Community>
+    // <CommunityPost></CommunityPost> 
+    <CommunityPost></CommunityPost>
     
   )
 }
