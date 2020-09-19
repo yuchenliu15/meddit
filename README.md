@@ -35,9 +35,9 @@
       - all posts
     - get `/posts/:id`
     - get `/posts/:id/comments`
-      - get all comments under post with id
+      - get all comments under post with post ID
     - post {username, content} `/posts/:id/comments`
-      - create comments under the post with id
+      - create comments under the post with post ID
   
 
 - disable user auth
