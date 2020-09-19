@@ -28,6 +28,7 @@ router.get('/:id/comments', async function(req, res, next) {
   res.status(200).send(comments)
 });
 
+// Create a comment for a post
 router.post('/:id/comments', async function(req, res, next) {
   const id = req.params.id;
   if(!id)
@@ -67,27 +68,28 @@ router.get('/', function(req, res, next) {
     .catch(e => res.status(200).send(e.code))
 });
 
+// Done from communities.js now
+// // Create a new post
+// router.post('/', function(req, res, next) {
+//   const title = req.body.title
+//   const description = req.body.description
+//   const content = req.body.content
+//   const topic = req.body.topic
 
-router.post('/', function(req, res, next) {
-  const title = req.body.title
-  const description = req.body.description
-  const content = req.body.content
-  const topic = req.body.topic
 
-
-  if(!content)
-    res.status(404).end('missing content');
-  if(!description)
-    res.status(404).end('missing description');
-  if(!title)
-    res.status(404).end('missing title');
-  if(!topic)
-    res.status(404).end('missing topic');
+//   if(!content)
+//     res.status(404).end('missing content');
+//   if(!description)
+//     res.status(404).end('missing description');
+//   if(!title)
+//     res.status(404).end('missing title');
+//   if(!topic)
+//     res.status(404).end('missing topic');
   
-  post.create(title, description, content, topic)
-    .then(() => res.status(200).end())
-    .catch(e => res.status(200).send(e.code))
+//   post.create(title, description, content, topic)
+//     .then(() => res.status(200).end())
+//     .catch(e => res.status(200).send(e.code))
 
-});
+// });
 
 module.exports = router;
