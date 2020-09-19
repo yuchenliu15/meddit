@@ -7,6 +7,7 @@ class Communities {
 
         let community = {
             id: newCommunities_idKey,
+            name: "",
             postIDs: "",
             pinnedPost: ""
         }
@@ -32,6 +33,34 @@ class Communities {
 
     async createPost(){
 
+    }
+
+    // Get all communities
+    async getAll(){
+        const res = await realtimeDatabase.ref('/communities/').orderByChild("name").once('value').then(function (snapshot) {
+            console.log(retrievedCommunities);
+            let retrievedCommunities = snapshot.val();
+
+            // let descendingCommunities = [];
+            // For descending order
+            // for (let key in retrievedCommunities){
+            //     descendingCommunities.unshift(retrievedCommunities[key]);
+            // }
+            // return descendingCommunities;
+
+            return retrievedCommunities;
+        });
+        return res;
+    }
+
+    // Get one community
+    async get(id){
+        const res = await realtimeDatabase.ref('/communities/' + id).once('value').then(function (snapshot) {
+            let retrievedCommunity = snapshot.val();
+      
+            return retrievedCommunity;
+        });
+        return res;
     }
 }
 
