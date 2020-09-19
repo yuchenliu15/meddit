@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie';
 import axios from 'axios'
 
 import Image from '../assets/background.svg';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -27,25 +28,16 @@ const useStyles = makeStyles((theme) => ({
 
 const Medical = (props) => {
     const classes = useStyles();
+    const history = useHistory();
     const {
         user
     } = props;
-    console.log(user)
 
-    //eample to use auth
     const [token, setToken] = useCookies(['auth_token']);
     useEffect(() => {
-        axios.get('http://localhost:3000/communities', {
-            headers: {
-                Authorization: token.auth_token
-            }
-        })
-            .then(res => {
-                console.log(res)
-            })
-            .catch(e => {
-                console.log(e)
-            })
+        if (!token.auth_token) {
+            history.push('/login');
+        }
     }, [])
 
     return (
