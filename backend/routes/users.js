@@ -31,5 +31,29 @@ router.post('/login', function(req, res, next) {
     })
 })
 
+router.get('/:username', function(req, res, next) {
+  const username = req.params.username;
+
+  if(!username)
+    res.status(404).end('missing username');
+  
+  user.get(username.replace(/\./g, ''))
+    .then(data => res.status(200).send(data))
+    .catch(e => res.status(400).send(e.code))
+
+});
+
+router.put('/:username', function(req, res, next) {
+  const username = req.params.username;
+  const body = req.body
+
+  if(!username)
+    res.status(404).end('missing data');
+  
+  user.update(username.replace(/\./g, ''), body)
+    .then(() => res.status(200).end())
+    .catch(e => {res.status(400).send(e.code); console.log(e)})
+
+});
 
 module.exports = router;

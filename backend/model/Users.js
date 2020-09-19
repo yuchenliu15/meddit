@@ -33,6 +33,28 @@ class Users {
             .once('value').then(snapshot => snapshot.val());
     }
 
+    async update(username, data) {
+        const before = await this.get(username);
+        console.log(data)
+        const dataPosts = data.posts ? data.posts: [];
+        const beforePosts = before.posts ? before.posts: [];
+        const dataComments = data.comments ? data.comments: [];
+        const beforeComments = before.comments ? before.comments: [];
+        const dataCommunities = data.communities ? data.communities: [];
+        const beforeCommunities = before.communities ? before.communities: [];
+
+        const user = {
+            name: username,
+            communities: [...dataCommunities, ...beforeCommunities],
+            comments: [...dataComments, ...beforeComments],
+            posts: [...dataPosts, ...beforePosts]
+        };
+        const updates = {};
+        updates["/Users/" + username] = user;
+        return await this.db.ref().update(updates);
+
+    }
+
     create(username, password) {
         return firebase.auth()
             .createUserWithEmailAndPassword(
