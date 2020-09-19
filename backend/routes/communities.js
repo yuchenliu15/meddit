@@ -35,7 +35,7 @@ router.post('/:id/posts', async function(req, res, next) {
   const title = req.body.title
   const topic = req.body.topic
   const description = req.body.description
-  const symptoms = req.body.symptoms
+  // const symptoms = req.body.symptoms
 
   if(!username)
     res.status(404).end('missing username');
@@ -47,11 +47,11 @@ router.post('/:id/posts', async function(req, res, next) {
     res.status(404).end('missing topic');
   if(!description)
     res.status(404).end('missing description');
-  if(!symptoms)
-    res.status(404).end('missing symptoms');
+  // if(!symptoms)
+  //   res.status(404).end('missing symptoms');
 
 
-  post.create(content, title, topic, description, symptoms, community.addPost(id), user.addPost(username.replace(/\./g, '')))
+  post.create(content, title, topic, description, community.addPost(id), user.addPost(username.replace(/\./g, '')))
     .then(() => res.status(200).end())
     .catch(e => res.status(400).send(e.code))
 });
@@ -78,10 +78,17 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   const name = req.body.name
+  const description = req.body.description
+  const posts = req.body.posts ? req.body.posts: []
+  const pinnedPost = req.body.pinnedPost ? req.body.pinnedPost: []
+  const defaultSymptoms = req.body.defaultSymptoms ? req.body.defaultSymptoms: []
+
   if(!name)
     res.status(404).end('missing name');
+  if(!description)
+    res.status(404).end('missing description');
 
-  community.create(name)
+  community.create(name, description, posts, pinnedPost, defaultSymptoms)
     .then(() => res.status(200).end())
     .catch(e => res.status(400).send(e.code))
 
