@@ -28,8 +28,8 @@ export default ({updateUser}) => {
     return (
         <div>
             <OutlinedInput onChange={onUsernameChange} type="text" />
-            <OutlinedInput onChange={onPasswordChange} type="text" />
-            <Button onClick={onClick} color="primary">sing up</Button>
+            <OutlinedInput onChange={onPasswordChange} type="password" />
+            <Button onClick={onClick} color="primary">sign up</Button>
         </div>
 
     )

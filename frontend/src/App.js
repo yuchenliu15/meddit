@@ -6,6 +6,7 @@ import CommunityPost from './pages/CommunityPost';
 import Community from './pages/Community';
 import Medical from './pages/Medical';
 import Singup from './pages/Signup'
+import Login from './pages/Login'
 import {
   BrowserRouter as Router,
   Switch,
@@ -38,6 +39,9 @@ const App = (props) => {
           </Route>
           <Route path="/signup">
             <Singup updateUser={updateUser} ></Singup>
+          </Route>
+          <Route path="/login">
+            <Login updateUser={updateUser} ></Login>
           </Route>
           <Route path="/">
             <Medical user={user}></Medical>
