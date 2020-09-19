@@ -13,9 +13,9 @@ router.get('/communities/:id', function(req, res, next) {
 });
 
 // All communities for this user
-router.get('/communities/', function(req, res, next) {
+router.get('/communities', function(req, res, next) {
   // console.log(CommunitiesTable.getAll());
-  res.send('');
+  res.send(CommunitiesTable.getAll());
 });
 
 

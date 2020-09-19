@@ -7,7 +7,8 @@ router.param('id', function(req, res, next, id) {
   return next();
 });
 
-// A single post 
+// A single post
+// TO DO: add /communities/id/ before /posts
 router.get('/posts/:id', function(req, res, next) {
   res.send(PostsTable.get(id));
 });

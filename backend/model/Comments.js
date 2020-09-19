@@ -28,6 +28,24 @@ class Comments {
         return res;
 
     }
+
+    // Get all comments
+    async getAll(){
+        const res = await realtimeDatabase.ref('/comments/').orderByChild("name").once('value').then(function (snapshot) {
+            console.log(retrievedCommunities);
+            let retrievedCommunities = snapshot.val();
+
+            // let descendingCommunities = [];
+            // For descending order
+            // for (let key in retrievedCommunities){
+            //     descendingCommunities.unshift(retrievedCommunities[key]);
+            // }
+            // return descendingCommunities;
+
+            return retrievedCommunities;
+        });
+        return res;
+    }
 }
 
 module.exports = Comments;
