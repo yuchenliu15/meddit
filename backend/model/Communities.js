@@ -11,8 +11,10 @@ class Communities {
 
         const community = {
             name: name,
+            description: '',
             posts: [],
-            pinnedPost: ''
+            pinnedPost: '',
+            defaultSymptoms: []
         }
         const updates = {};
         updates["/Communities/" + newCommunitiesKey] = community;

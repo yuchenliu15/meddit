@@ -6,6 +6,7 @@
     `npm i` 
 
     `npm start` (listen to port 3000 default)
+    
 
 - endpoints
   - users
@@ -20,16 +21,18 @@
     - get `/communities/`
       - all communities
     - get `/communities/:id`
+    - get `/communities/:id/posts`
+      - get all posts for this community
   - comments
     - post {content, user_id} `/comments/`
     - get `/comments/`
       - all comments
     - get `/comments/:id`
   - posts
-    - post {content, title} `/comments/`
-    - get `/comments/`
+    - post {content, title, topic} `/posts/`
+    - get `/posts/`
       - all posts
-    - get `/comments/:id`
+    - get `/posts/:id`
 
 - disable user auth
   - comment out line 16 `app.use(authenticateToken)` in backend/app.js
