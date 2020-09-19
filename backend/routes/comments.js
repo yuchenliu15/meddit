@@ -29,8 +29,6 @@ router.post('/', function(req, res, next) {
   if(!user_id)
     res.status(404).end('missing user_id');
 
-  console.log(content)
-  console.log(user_id)
   comment.create(content, user_id)
     .then(() => res.status(200).end())
     .catch(e => res.status(200).send(e.code))
