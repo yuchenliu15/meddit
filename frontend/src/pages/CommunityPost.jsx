@@ -4,14 +4,17 @@ import Post from '../components/Post';
 import Comments from '../components/CommentSection';
 import CommentCreate from '../components/CommentCreate';
 
+import Image from '../assets/background.svg';
+
 const useStyles = makeStyles((theme) => ({
     container: {
-        height: '230vh',
+        height: '100vh',
         maxWidth: '100vw',
         padding: '2rem 2rem 2rem 2rem',
         [theme.breakpoints.down('lg')]: {
         padding: '1rem 1rem 1rem 1rem'
         },
+        backgroundImage: `url(${Image})`,
     },
     postCard: {
         boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.08)',
