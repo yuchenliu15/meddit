@@ -39,7 +39,7 @@ router.post('/', function(req, res, next) {
   if(!topic)
     res.status(404).end('missing topic');
   
-  post.create(title, description, content, topic, symptoms)
+  post.create(title, description, content, topic)
     .then(() => res.status(200).end())
     .catch(e => res.status(200).send(e.code))
 
