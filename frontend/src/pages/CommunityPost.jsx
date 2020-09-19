@@ -1,7 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import {Grid, Fade, Button, makeStyles, Typography, Box, CardContent, Card} from '@material-ui/core';
+import {Grid, Fade, Button, makeStyles, Typography, Box, CardContent, Card, Divider} from '@material-ui/core';
+import Post from '../components/community/Post';
+import Comments from '../components/community/CommentSection';
+import CommentCreate from '../components/community/CommentCreate';
+
+import Image from '../assets/background.svg';
 
 const useStyles = makeStyles((theme) => ({
+    container: {
+        height: '100vh',
+        maxWidth: '100vw',
+        padding: '2rem 2rem 2rem 2rem',
+        [theme.breakpoints.down('lg')]: {
+        padding: '1rem 1rem 1rem 1rem'
+        },
+        backgroundImage: `url(${Image})`,
+    },
     postCard: {
         boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.08)',
         width: '100%',
@@ -24,45 +38,47 @@ const useStyles = makeStyles((theme) => ({
         background: '#9066FF',
         padding: '3px 6px 3px 6px',
         borderRadius: '5px',
+    },
+    topBar: {
+        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+        background: '#9066FF',
+        padding: '1rem 3rem',
+        borderRadius: '4px',
+        color: '#fff',
     }
+
 }));
 
 const CommunityPost = (props) => {
     const classes = useStyles();
     return (
         <div className = {classes.container}>
-            <Grid container direction = 'row' spacing = {0} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
-                <Grid xs={12} md={6} lg={7} xl={7} style={{marginLeft: '1rem', marginTop: '1rem', height: '80vmin'}}>
+            <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
+                <Grid item xs ={12} mg = {6} lg ={7} xl = {7} style = {{marginLeft: '1rem', marginTop: '1rem', height: '80vmin', width: '100%'}}>
                     <Grid container direction = 'column' spacing = {3}>
                         <Grid item>
-                            <Card className = {classes.postCard}>
-                                <CardContent>
-                                    <Grid container direction = 'row' justify = 'space-between'>
-                                        <Grid item>
-                                            <Grid container direction = 'row' spacing = {2}>
-                                                <Grid item><Typography className = {classes.postTitle}><Box fontWeight = 'bold'>This is a post example</Box></Typography></Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item>
-                                            <Grid container direction = 'row' spacing = {2}>
-                                                <Grid item><Typography variant = 'subtitle2' className = {classes.cardLabel}></Typography></Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item>
-                                            <Grid container direction = 'row' spacing = {2}>
-                                                <Grid item><Typography variant = 'subtitle2' className = {classes.cardLabel}>Description: </Typography> </Grid>
-                                                <Grid item><Typography variant = 'subtitle2' className = {classes.content}>{props.content}</Typography></Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </CardContent>
-                            </Card>
+                            <div className = {classes.topBar}>
+                                <Grid container = 'row' spacing = {2}  justify="space-between">
+                                    <Grid item><Typography variant = 'subtitle1'>/Flu - What should I do if I have the Flu? </Typography> </Grid>
+                                    <Grid item><Typography variant = 'subtitle1'>X Close</Typography></Grid> 
+                                </Grid>
+                            </div>
                         </Grid>
-                        
+                        <Grid item>
+                            <div className = {classes.post}>
+                                <Post></Post>
+                            </div>
+                        </Grid>
+                        <Grid item>
+                            <CommentCreate></CommentCreate>
+                        </Grid>
+                        <Divider />
+                        <Grid item>
+                            <Comments></Comments>
+                        </Grid> 
                     </Grid>
                 </Grid>
             </Grid>
-
         </div>
     )
 }
