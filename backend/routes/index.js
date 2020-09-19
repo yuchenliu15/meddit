@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-
 const firebase = require('../model/index');
 
 const Users = require('../model/Users')
 const Communities = require('../model/Communities')
 const Posts = require('../model/Posts')
 const Comments = require('../model/Comments')
+
 
 
 
