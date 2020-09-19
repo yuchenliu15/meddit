@@ -13,7 +13,7 @@ const commentsRouter = require('./routes/comments');
 
 
 const app = express();
-app.use(authenticateToken)
+// app.use(authenticateToken)
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
