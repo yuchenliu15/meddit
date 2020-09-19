@@ -6,12 +6,13 @@ class Posts {
         this.db = firebase.database()
     }
 
-    async create(content, title, topic) {
+    async create(title, description, content, topic) {
         const newCommunitiesKey = firebase.database().ref("/Posts").push().key;
 
         const post = {
-            content: content,
             title: title,
+            description: description,
+            content: content,
             topic: topic,
             timestamp: Date.now()
         }

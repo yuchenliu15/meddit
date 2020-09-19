@@ -23,8 +23,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  const content = req.body.content
   const title = req.body.title
+  const description = req.body.description
+  const content = req.body.content
   const topic = req.body.topic
 
   if(!content)
@@ -34,7 +35,7 @@ router.post('/', function(req, res, next) {
   if(!topic)
     res.status(404).end('missing topic');
   
-  post.create(content, title, topic)
+  post.create(title, description, content, topic)
     .then(() => res.status(200).end())
     .catch(e => res.status(200).send(e.code))
 

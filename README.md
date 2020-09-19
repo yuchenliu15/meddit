@@ -29,7 +29,8 @@
       - all comments
     - get `/comments/:id`
   - posts
-    - post {content, title, topic} `/posts/`
+    - post {title, description, content, topic} `/posts/`
+      - create a new post
     - get `/posts/`
       - all posts
     - get `/posts/:id`
