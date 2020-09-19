@@ -2,11 +2,13 @@ import React, {useState } from 'react';
 import { OutlinedInput, Button } from '@material-ui/core';
 import axios from 'axios'
 import { useCookies } from 'react-cookie';
+import { useHistory } from "react-router-dom";
 
 export default () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [token, setToken] = useCookies(['auth_token']);
+    const history = useHistory();
 
     const onUsernameChange = (e) => { setUsername(e.target.value)}
     const onPasswordChange = (e) => { setPassword(e.target.value)}
@@ -16,8 +18,8 @@ export default () => {
                 username,
                 password
             }).then((res) => {
-                console.log(res.data)
                 setToken('auth_token', res.data)
+                history.push('/');
             }).catch(e => {
                 console.log(e)
             })
