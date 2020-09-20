@@ -44,15 +44,16 @@ const Medical = (props) => {
         setText(e.target.value)
     }
 
-    const onClick = (e) => {
-        console.log(text)
+    const onClick = async (e) => {
+        const fetchResult = await fetchData(text);
+        console.log(fetchResult)
     }
 
-    const fetch = async () => {
+    const fetchData = async (text) => {
         try {
             const result = await axios.post("https://api.infermedica.com/v2/parse", 
               {
-                text: "i feel smoach pain but no couoghing today"
+                text
               },
               {
                 headers: {
@@ -85,10 +86,9 @@ const Medical = (props) => {
                   'Content-Type': 'application/json'
                 }
               })
-            console.log(diagnosisResult.data.question.items)
+            return diagnosisResult.data
           } catch (e){
-            console.log(e)
-
+            return 
           }
     }
 
