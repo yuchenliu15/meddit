@@ -10,7 +10,10 @@ router.post('/create', async function(req, res, next) {
   
   user.create(username, password)
     .then(() => { user.createRecord(username)})
-    .then(() => res.status(200).end())
+    .then(() => {
+      const token = user.generateAccessToken(username)
+      res.status(200).end(token)
+    })
     .catch(e => res.status(400).end(e.code))
 
 })

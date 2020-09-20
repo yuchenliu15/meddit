@@ -5,7 +5,13 @@ import CommunityItem from './components/community/CommunityItem';
 import CommunityPost from './pages/CommunityPost';
 import Community from './pages/Community';
 import Medical from './pages/Medical';
-
+import Singup from './pages/Signup'
+import Login from './pages/Login'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
 
 }));
@@ -14,12 +20,56 @@ const useStyles = makeStyles((theme) => ({
 
 const App = (props) => {
   const classes = useStyles();
+  const [user, setUser] = useState({});
+
+  const updateUser = (newUserData) => {
+    Object.assign(user, newUserData);
+    setUser(user)
+  }
+
   return (
-    // <CommunityPost></CommunityPost> 
-    // <Community></Community>
-    <Community></Community>
-    // <CommunityPost></CommunityPost>
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/post">
+            <CommunityPost></CommunityPost> 
+          </Route>
+          <Route path="/community">
+            <Community></Community>
+          </Route>
+          <Route path="/signup">
+            <Singup updateUser={updateUser} ></Singup>
+          </Route>
+          <Route path="/login">
+            <Login updateUser={updateUser} ></Login>
+          </Route>
+          <Route path="/">
+            <Medical user={user}></Medical>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
     
   )
 }
 export default App;
+
+// function PrivateRoute({ children, ...rest }) {
+//   return (
+//     <Route
+//       {...rest}
+//       render={({ location }) =>
+//         fakeAuth.isAuthenticated ? (
+//           children
+//         ) : (
+//           <Redirect
+//             to={{
+//               pathname: "/login",
+//               state: { from: location }
+//             }}
+//           />
+//         )
+//       }
+//     />
+//   );
+// }

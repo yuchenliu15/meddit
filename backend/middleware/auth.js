@@ -5,8 +5,9 @@ const secretToken = `09f26e402586e2faa8da4c98a35f1
   d42710a4da095a2ce285b009f0c3730cd9b8e1af3eb84df6611`
 
 function authenticateToken(req, res, next) {
-
-    if(req.originalUrl.includes('/users')) {
+  console.log(req.headers)
+  console.log(req.method)
+    if(req.originalUrl.includes('/users') || req.method === 'OPTIONS') {
         next();
         return;
     }
