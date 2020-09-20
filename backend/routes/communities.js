@@ -7,6 +7,26 @@ const community = new Communities();
 const post = new Posts();
 const user = new Users()
 
+router.get('/find/:name', function(req, res, next) {
+  const name = req.params.name
+
+  if(!name)
+    res.status(404).end('missing name');
+
+  community.find(name)
+    .then(data => {
+      if(data) {
+        res.status(200).send(data)
+      } else {
+        res.status(200).send(null)
+      }
+    })
+    .catch(e => {
+      res.status(400).send(e.code)
+    })
+
+})
+
 // Create/update a community's info
 router.post('/', function(req, res, next) {
   const name = req.body.name
