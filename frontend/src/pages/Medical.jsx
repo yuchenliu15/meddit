@@ -36,6 +36,7 @@ const Medical = (props) => {
     const [token, setToken] = useCookies(['auth_token']);
     const [isLoading, setIsLoading] = useState(false);
     const [illness, setIllness] = useState([])
+    const [community, setCommunity] = useState([])
     useEffect(() => {
         if (!token.auth_token) {
             history.push('/login');
@@ -50,9 +51,46 @@ const Medical = (props) => {
         setIsLoading(true);
         setIllness([]);
         const fetchResult = await fetchData(text);
+        console.log(fetchResult)
         setIsLoading(false);
-        if(fetchResult)
-            setIllness(fetchResult.conditions)
+
+        if(fetchResult) {
+          setIllness(fetchResult.conditions)
+          const currentCommunities = []
+          for(const item of fetchResult.conditions) {
+            const itemExists = await axios.get("http://localhost:3000/communities/find/"+item.name, 
+            {
+              headers: {
+                Authorization: token.auth_token
+              }
+            });
+
+            if(itemExists){
+              currentCommunities.push(itemExists)
+            }else{
+              const itemExists = await axios.post("http://localhost:3000/communities/", 
+              {
+                name: item.name,
+                description: 'sdf'
+              },
+              {
+                
+                headers: {
+                  Authorization: token.auth_token
+                }
+              })
+              itemExists = await axios.get("http://localhost:3000/communities/find/"+item.name, 
+              {
+                headers: {
+                  Authorization: token.auth_token
+                }
+              });
+              currentCommunities.push(itemExists)
+            }
+          }
+
+          console.log(currentCommunities)
+        }
     }
 
     const fetchData = async (text) => {
