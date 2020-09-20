@@ -41,6 +41,7 @@ const Medical = (props) => {
         if (!token.auth_token) {
             history.push('/login');
         }
+        console.log(localStorage.getItem('user'));
     }, [])
 
     return (

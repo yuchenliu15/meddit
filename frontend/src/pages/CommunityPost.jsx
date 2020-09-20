@@ -54,12 +54,27 @@ const useStyles = makeStyles((theme) => ({
 const CommunityPost = (props) => {
     const classes = useStyles();
     const history = useHistory();
+    const [currentPost, setCurrentPost] = useState('');
 
     const [token, setToken] = useCookies(['auth_token']);
     useEffect(() => {
         if (!token.auth_token) {
             history.push('/login');
         }
+        setCurrentPost(localStorage.getItem('currentPost'));
+        fetch(`http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ/posts/${currentPost}`, {
+            method: 'GET',
+            headers: {
+                'Authorization' : token.auth_token,
+                'Accept': 'application/json',
+            }})
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+            },
+            (error) => {
+                console.log(error)
+            });
     }, [])
 
     return (
@@ -71,7 +86,7 @@ const CommunityPost = (props) => {
                             <div className = {classes.topBar}>
                                 <Grid container = 'row' spacing = {2}  justify="space-between">
                                     <Grid item><Typography variant = 'subtitle1'>/Flu - What should I do if I have the Flu? </Typography> </Grid>
-                                    <Grid item><Typography variant = 'subtitle1'>X Close</Typography></Grid> 
+                                    <Grid item onClick = {() => {history.push('/community')}}><Typography variant = 'subtitle1'>X Close</Typography></Grid> 
                                 </Grid>
                             </div>
                         </Grid>

@@ -62,10 +62,12 @@ const Community = (props) => {
 
 
 
+
     useEffect(() => {
         if (!token.auth_token) {
             history.push('/login');
         }
+        console.log(posts);
         fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ', {
             method: 'GET',
             headers: {
@@ -89,7 +91,6 @@ const Community = (props) => {
             headers: {
                 'Authorization' : token.auth_token,
                 'Accept' : 'application/json',
-
             }})
             .then((res) => res.json())
             .then((res) => {
@@ -101,6 +102,7 @@ const Community = (props) => {
             });
         
     }, [render]);
+
 
     return (
         <div className = {classes.container}>
@@ -117,7 +119,7 @@ const Community = (props) => {
                         <Grid item><CommunityItem title = {`${communityName} information & recourses`} community = "auto generated" content = {communityDescription} symptoms = {defaultSymptoms} active = {true}></CommunityItem></Grid>
                     </Grid> 
                     <Grid item>
-                        <PostCreate user = {props.user} token = {token.auth_token} incrState = {incrState}></PostCreate>
+                        <PostCreate user = {localStorage.getItem('user')} token = {token.auth_token} incrState = {incrState}></PostCreate>
                     </Grid>
                     <Grid item>
                         <Grid container direction = 'row' spacing = {2} alignContent = 'stretch' alignItems = 'stretch' >
@@ -128,10 +130,10 @@ const Community = (props) => {
                             <Grid item><Typography className = {classes.filter}>Doctors</Typography></Grid>
                         </Grid>
                     </Grid> 
-                    {(posts != null) ? posts.slice(0, 8).reverse().map((select, index) => {
+                    {(posts != null) ? posts.slice().reverse().map((select, index) => {
                         if(select != null){
                             return (
-                                <Grid item key={select.timestamp}><CommunityItem key={select.timestamp} title = {select.title} community = {`/${communityName}`} content = {select.content}></CommunityItem> </Grid>
+                                <Grid item key={select.timestamp}><CommunityItem key={select.timestamp} id = {select.id} title = {select.title} community = {`/${communityName}`} content = {select.content} ></CommunityItem> </Grid>
                             )
                         }
                     }): ' '}

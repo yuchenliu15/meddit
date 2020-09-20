@@ -35,7 +35,7 @@ const App = (props) => {
             <CommunityPost></CommunityPost> 
           </Route>
           <Route path="/community">
-            <Community user = {user}></Community>
+            <Community></Community>
           </Route>
           <Route path="/signup">
             <Singup updateUser={updateUser} ></Singup>

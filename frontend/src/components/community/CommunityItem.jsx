@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Box, Card, Typography, Grid, CardContent, makeStyles} from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     postCard: {
@@ -32,6 +33,13 @@ const useStyles = makeStyles((theme) => ({
 
 const CommunityItem = (props) => {
     const classes = useStyles();
+    const history = useHistory();
+
+    const handleClick = () => {
+        history.push('/post');
+        localStorage.setItem('currentPost', props.id)
+
+    }
 
 
     return (
@@ -40,7 +48,7 @@ const CommunityItem = (props) => {
                 <Grid container direction = "row" justify = 'space-between'>
                     <Grid item>
                         <Grid container direction = 'row' spacing = {2}>
-                            <Grid item><Box fontWeight = 'bold' className = {classes.postTitle}>{props.title}</Box></Grid>
+                            <Grid item onClick = {handleClick}><Box fontWeight = 'bold' className = {classes.postTitle}>{props.title}</Box></Grid>
                         </Grid>
                     </Grid>
                 </Grid>
