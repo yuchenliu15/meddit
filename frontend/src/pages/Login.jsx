@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie';
 import { useHistory } from "react-router-dom";
 import Image from '../assets/background.svg';
+import Logo from '../assets/logo2.png';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '.9rem',
     },
     button: {
-        backgroundColor: '#9066FF',
+        backgroundColor: '#3AD390',
         color: '#fff',
         padding: '0.5rem',
         width: '20rem',
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         color: '#fff',
         textTransform: 'none',
         marginTop: '1rem',
-    }
+    },
 
 }));
 
@@ -66,6 +67,9 @@ export default ({updateUser}) => {
             <Grid container justify='center' alignItems='center' style={{width: '100vw', height: '100vh'}}>
                 <Grid item>
                     <Grid container direction = "column" alignItems = "flex-start" justify = 'center' spacing = {5}>
+                        <Grid item>
+                            <img className = {classes.logo} src={Logo}></img>
+                        </Grid>
                     <Grid item><Typography variant='h4' style={{fontWeight: 'bold', color: '#334D6E'}}>Sign In</Typography></Grid>
                     <Grid item>
                         <Input required onChange={onUsernameChange}  placeholder="Email" className={classes.field} type = "text"/>

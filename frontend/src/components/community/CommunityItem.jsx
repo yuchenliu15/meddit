@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '0.5em',
     },
     active: {
-        border: '3px solid #9066FF',
+        border: '3px solid #38D18E',
         boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.08)',
         width: '100%',
         marginBottom: '0.5em',
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
     symptoms: {
         color: '#fff',
-        background: '#9066FF',
+        background: '#38D18E',
         padding: '3px 6px 3px 6px',
         borderRadius: '5px',
     }

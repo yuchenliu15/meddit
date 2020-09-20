@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
     topic: {
         color: '#fff',
-        background: '#9066FF',
+        background: '#38D18E',
         padding: '2px 5px 2px 5px',
         borderRadius: '5px',
     }

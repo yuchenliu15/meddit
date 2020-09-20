@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     },
     topBar: {
         boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-        background: '#9066FF',
+        background: '#004677',
         padding: '1rem 3rem',
         borderRadius: '4px',
         color: '#fff',
