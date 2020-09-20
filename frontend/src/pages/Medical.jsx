@@ -32,13 +32,65 @@ const Medical = (props) => {
     const {
         user
     } = props;
-
+    const [text, setText] = useState('');
     const [token, setToken] = useCookies(['auth_token']);
     useEffect(() => {
         if (!token.auth_token) {
             history.push('/login');
         }
     }, [])
+
+    const onChange = (e) => {        
+        setText(e.target.value)
+    }
+
+    const onClick = (e) => {
+        console.log(text)
+    }
+
+    const fetch = async () => {
+        try {
+            const result = await axios.post("https://api.infermedica.com/v2/parse", 
+              {
+                text: "i feel smoach pain but no couoghing today"
+              },
+              {
+                headers: {
+                  'App-Id': process.env.API_APP_ID,
+                  'App-Key': process.env.API_APP_KEY,
+                  'Content-Type': 'application/json'
+                }
+              })
+        
+            const parseResult = result.data;
+            if (parseResult.mentions) {
+            }
+            const evidence = parseResult.mentions.map(item => {
+              return {
+                id: item.id,
+                choice_id: item.choice_id,
+              }
+            })
+        
+            const diagnosisResult = await axios.post("https://api.infermedica.com/v2/diagnosis", 
+              {
+                sex: 'female',
+                age: 25,
+                evidence
+              },
+              {
+                headers: {
+                  'App-Id': process.env.API_APP_ID,
+                  'App-Key': process.env.API_APP_KEY,
+                  'Content-Type': 'application/json'
+                }
+              })
+            console.log(diagnosisResult.data.question.items)
+          } catch (e){
+            console.log(e)
+
+          }
+    }
 
     return (
         <div className = {classes.container}>
@@ -52,7 +104,7 @@ const Medical = (props) => {
                             </div>
                         </Grid> 
                         <Grid item>
-                            <SymptomLog></SymptomLog>
+                            <SymptomLog onChange={onChange} onClick={onClick} ></SymptomLog>
                         </Grid>
                         <Grid item>
                             <Typography variant = 'h6'><Box fontWeight = 'bold'>Some Communities You might want to Join</Box></Typography>
@@ -70,3 +122,4 @@ const Medical = (props) => {
 }
 
 export default Medical;
+

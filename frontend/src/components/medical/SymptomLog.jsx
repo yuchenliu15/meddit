@@ -78,11 +78,13 @@ const useStyles = makeStyles((theme) => ({
 
 const SymptomLog = (props) => {
     const classes = useStyles();
+    const { onChange, onClick } = props;
     return (
         <Card className = {classes.container}>
             <CardContent className = {classes.content}>
                 <InputBase
                     className = {classes.content}
+                    onChange={onChange}
                     multiline
                     rows = {2}
                     placeholder = "I have a fever, and a cough. I have also been feeling nauseous lately"
@@ -95,7 +97,7 @@ const SymptomLog = (props) => {
                 </Grid>
                 <Grid container justify = 'flex-end' style = {{paddingTop: '10px'}}>
                     <Grid item>
-                        <Button size = 'small' className = {classes.submitBtn}>Save</Button>
+                        <Button onClick={onClick} size = 'small' className = {classes.submitBtn}>Save</Button>
                     </Grid>
                 </Grid>
             </CardContent>
