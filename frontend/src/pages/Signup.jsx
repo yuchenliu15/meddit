@@ -88,7 +88,7 @@ export default ({updateUser}) => {
             <Grid container justify='center' alignItems='center' style={{width: '100vw', height: '100vh'}}>
                 <Grid item>
                     <Grid container direction = "column" alignItems = "flex-start" justify = 'center' spacing = {5}>
-                    <Grid item><Typography variant='h4' style={{fontWeight: 'bold', color: '#334D6E'}}>Sign In</Typography></Grid>
+                    <Grid item><Typography variant='h4' style={{fontWeight: 'bold', color: '#334D6E'}}>Sign Up</Typography></Grid>
                     <Grid item>
                         <Input required onChange={onUsernameChange}  placeholder="Email" className={classes.field} type = "text"/>
                     </Grid>
