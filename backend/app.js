@@ -17,12 +17,19 @@ const cors = require('cors');
 
 
 const app = express();
-// app.use(authenticateToken)
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    res.header("Access-Control-Allow-Methods", "*")
+    next();
+});
+app.use(authenticateToken)
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -31,6 +38,7 @@ app.use(function(req, res, next) {
 });
 app.use(cors());
 app.options('*', cors());
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/communities', communitiesRouter);

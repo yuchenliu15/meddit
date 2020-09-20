@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import SymptomLog from '../components/medical/SymptomLog';
 import {Grid,Typography, makeStyles, Box, Divider, GridList, Card, CardContent} from '@material-ui/core';
+import { useCookies } from 'react-cookie';
+import axios from 'axios'
 
 import Image from '../assets/background.svg';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -25,6 +28,18 @@ const useStyles = makeStyles((theme) => ({
 
 const Medical = (props) => {
     const classes = useStyles();
+    const history = useHistory();
+    const {
+        user
+    } = props;
+
+    const [token, setToken] = useCookies(['auth_token']);
+    useEffect(() => {
+        if (!token.auth_token) {
+            history.push('/login');
+        }
+    }, [])
+
     return (
         <div className = {classes.container}>
             <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
