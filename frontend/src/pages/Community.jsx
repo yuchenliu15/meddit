@@ -9,7 +9,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem';
+
+import Logo from '../assets/logo2.png';
+
 import { URL } from "../constants.js";
+
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -23,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
     greetingsContainer: {
         boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-        background: '#9066FF',
+        background: '#004677',
         padding: '1rem 3rem',
         borderRadius: '4px',
         color: '#fff',
@@ -38,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '4px',
     },
     activeFilter: {
-        background: '#9066FF',
+        background: '#38D18E',
         padding: '.2rem 1rem .2rem 1rem',
         boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.08)',
         borderRadius: '4px',
@@ -177,6 +181,9 @@ const Community = (props) => {
         <div className = {classes.container}>
             <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
             <Grid item xs={12} md={6} lg={7} xl={7} style={{marginLeft: '1rem', marginTop: '1rem', height: '80vmin'}}>
+            <Grid item>
+                            <img className = {classes.logo} src={Logo}></img>
+                        </Grid>
                 <Grid container direction = 'column' spacing = {3}>
                     <Grid item>
                         <div className = {classes.topBar}>

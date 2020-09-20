@@ -6,6 +6,7 @@ import { OutlinedInput, Button, Grid, makeStyles, Typography, Input, Link, TextF
 import axios from 'axios'
 import { useCookies } from 'react-cookie';
 import { useHistory } from "react-router-dom";
+import Logo from '../assets/logo2.png';
 
 import Image from '../assets/background.svg';
 
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '.9rem',
     },
     button: {
-        backgroundColor: '#9066FF',
+        backgroundColor: '#3AD390',
         color: '#fff',
         padding: '0.5rem',
         width: '20rem',
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 'bold',
     },
     submitBtn: {
-        backgroundColor: '#9066FF',
+        backgroundColor: '#3AD390',
         color: '#fff',
         textTransform: 'none',
         marginTop: '1rem',
@@ -88,6 +89,9 @@ export default ({updateUser}) => {
         <div className = {classes.container}>
             <Grid container justify='center' alignItems='center' style={{width: '100vw', height: '100vh'}}>
                 <Grid item>
+                <Grid item>
+                            <img className = {classes.logo} src={Logo}></img>
+                        </Grid>
                     <Grid container direction = "column" alignItems = "flex-start" justify = 'center' spacing = {5}>
                     <Grid item><Typography variant='h4' style={{fontWeight: 'bold', color: '#334D6E'}}>Sign Up</Typography></Grid>
                     <Grid item>

@@ -13,14 +13,14 @@ const useStyles = makeStyles((theme) => ({
         color: '#AEAEAE',
     },
     submitBtn: {
-        backgroundColor: '#9066FF',
+        backgroundColor: '#38D18E',
         color: '#fff',
         textTransform: 'none',
         marginTop: '1rem',
     },
     cancelBtn: {
-        border: '1px solid #DAE0E6',
-        color: '#9066FF',
+        border: '1px solid #38D18E',
+        color: '#38D18E',
         textTransform: 'none',
         marginTop: '1rem',
     },
