@@ -45,7 +45,7 @@ const CommentCreate = (props) => {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({username: localStorage.getItem('user'), content: text}),
+                body: JSON.stringify({username:localStorage.getItem('user'), content: text}),
             })
             .then((res) => {
                 res.json();

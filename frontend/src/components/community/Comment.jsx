@@ -14,25 +14,6 @@ const useStyles = makeStyles((theme) => ({
 const Comment = (props) => {
     const classes = useStyles();
 
-    useEffect(() => {
-        console.log(props.id);
-        if(props.id != null){
-            fetch(`${URL}/posts/${localStorage.getItem('currentPost')}/comments/${props.id}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization' : props.token,
-                    'Accept': 'application/json',
-                }})
-                .then((res) => res.json())
-                .then((res) => {
-                    console.log(res);
-                },
-                (error) => {
-                    console.log(error);
-                });
-        }
-
-    })
     return (
         <Card className = {classes.comment}>
             <CardContent>
@@ -40,7 +21,7 @@ const Comment = (props) => {
                     <Grid item>
                         <Grid container direction = "row" spacing = {2}>
                             <Grid item>
-                                <Typography variant = 'subtitle2'><Box fontWeight = 'bold'>Anonomous Rabbit</Box></Typography>
+                                <Typography variant = 'subtitle2'><Box fontWeight = 'bold'>{props.username}</Box></Typography>
                             </Grid>
                             <Grid item>
                                 <Typography variant = 'subtitle2'>10 minutes ago</Typography>
@@ -52,7 +33,7 @@ const Comment = (props) => {
                     <Grid item>
                         <Grid container direction = "row" spacing = {2}>
                             <Grid item>
-                                <Typography variant = 'subtitle1'>Nice project! I was wondering what is the back-end and database usage. Cant this be done with react and direct calls to the spotify api?.</Typography>
+                                <Typography variant = 'subtitle1'>{props.content}</Typography>
                             </Grid>
                         </Grid>
                     </Grid>
