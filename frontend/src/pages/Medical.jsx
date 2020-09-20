@@ -159,6 +159,21 @@ const Medical = (props) => {
           }
     }
 
+    const addCommunity = communityID => async () => {
+      const username = localStorage.getItem('username')
+      const result = await axios.put("http://localhost:3000/users/"+ username, 
+      {
+        communities: [communityID]
+      },
+      {
+        headers: {
+          'App-Id': process.env.REACT_APP_ZAPI_APP_ID,
+          'App-Key': process.env.REACT_APP_API_APP_KEY,
+          'Content-Type': 'application/json'
+        }
+      })
+    }
+
     return (
         <div className = {classes.container}>
             <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
@@ -194,7 +209,7 @@ const Medical = (props) => {
                               <Typography variant = 'subtitle2' style = {{opacity: '.7'}}>This is a Community for people with {item.name} </Typography>
                               </div>
 
-                              <Button onClick={onClick} size = 'small' className = {classes.submitBtn}>+</Button>
+                              <Button onClick={addCommunity(communityID)} size = 'small' className = {classes.submitBtn}>+</Button>
 
                             </div>)
                             })
