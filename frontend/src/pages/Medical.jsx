@@ -24,6 +24,14 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '4px',
         color: '#fff',
     },
+    communityContainer: {
+      boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+      background: '#9066FF',
+      padding: '1rem 3rem',
+      borderRadius: '4px',
+      color: '#fff',
+      width: '450px'
+  },
 }));
 
 const Medical = (props) => {
@@ -57,7 +65,6 @@ const Medical = (props) => {
         setIsLoading(true);
         setIllness([]);
         const fetchResult = await fetchData(text);
-        console.log(fetchResult)
         setIsLoading(false);
 
         if(fetchResult) {
@@ -77,7 +84,7 @@ const Medical = (props) => {
               let itemExists = await axios.post("http://localhost:3000/communities/", 
               {
                 name: item.name,
-                description: item.name
+                description: 'This is a Community for people with Acute bronchitis'+item.name
               },
               {
                 
@@ -94,8 +101,7 @@ const Medical = (props) => {
               currentCommunities.push(itemExists.data)
             }
           }
-
-          console.log(currentCommunities)
+          setCommunity(currentCommunities)
         }
     }
 
@@ -166,7 +172,18 @@ const Medical = (props) => {
 
                             </GridList>
                         </Grid>
-                        <Button onClick={onCommunityClick} color="primary">Community</Button>
+                        {
+                          community.map(item =>{
+                            const communityID = Object.keys(item)[0]
+                            const info = item[communityID];
+                            return (
+                            <div key={info.name} className = {classes.communityContainer}>
+                              <Typography variant ='h6'><Box fontWeight = 'bold'>{info.name}</Box></Typography>
+                              <Typography variant = 'subtitle2' style = {{opacity: '.7'}}>This is a Community for people with {item.name} </Typography>
+                            </div>)
+                            })
+                        }
+
                     </Grid>
                 </Grid>
             </Grid>
