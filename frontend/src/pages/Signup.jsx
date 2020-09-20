@@ -1,10 +1,14 @@
 import React, {useState } from 'react';
+import { useAlert } from 'react-alert';
+
 import {Typography, Box, TextField, Select, MenuItem} from '@material-ui/core';
 
 import { OutlinedInput, Button } from '@material-ui/core';
 import axios from 'axios'
 import { useCookies } from 'react-cookie';
 import { useHistory } from "react-router-dom";
+
+  
 
 export default ({updateUser}) => {
     const [username, setUsername] = useState('');
@@ -20,20 +24,31 @@ export default ({updateUser}) => {
     const onSexChange = (e) => { setSex(e.target.value)}
     const onAgeChange = (e) => { setAge(e.target.value)}
 
+
+    // alert for notifications
+    const alert = useAlert();
+
     const onClick = () => {
-        axios.post('http://localhost:3000/users/create',
+        if (username == '' || password == '' || sex == '' || age == ''){
+            alert.error("Please fill all parts to register!");
+        }
+        else{
+            axios.post('http://localhost:3000/users/create',
             {
                 username,
                 password,
                 sex,
                 age
             }).then((res) => {
+                alert.success("Account successfully created!");
                 updateUser({id: username})
                 setToken('auth_token', res.data)
                 history.push('/');
             }).catch(e => {
                 console.log(e)
+                alert.error("Network error, account creation unsuccessful!");
             })
+        }
     }
     return (
         <div>
