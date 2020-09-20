@@ -34,9 +34,12 @@ class Users {
         }
     }
 
-    async createRecord(username) {
+    async createRecord(username, sex, age) {
+
         const user = {
-            name: username
+            name: username,
+            sex: sex,
+            age: age
         };
         const updates = {};
         updates["/Users/" + username.replace(/\./g,'')] = user;
@@ -63,10 +66,10 @@ class Users {
         const dataCommunities = data.communities ? data.communities: [];
         const beforeCommunities = before.communities ? before.communities: [];
 
-        const dataBirthdate = data.birthdate;
-        const dataSex = data.sex;
-        const dataSymptoms = data.Symptoms;
-        const dataIllnesses = data.Illnesses;
+        const dataAge = data.age ? before.age: "";
+        const dataSex = data.sex ? before.sex: "";
+        const dataSymptoms = data.Symptoms ? before.Symptoms: [];
+        const dataIllnesses = data.Illnesses ? before.Illnesses: [];
 
 
         const user = {
@@ -74,7 +77,7 @@ class Users {
             communities: [...dataCommunities, ...beforeCommunities],
             comments: [...dataComments, ...beforeComments],
             posts: [...dataPosts, ...beforePosts],
-            birthdate: dataBirthdate,
+            age: dataAge,
             sex: dataSex,
             symptoms: dataSymptoms,
             illnesses: dataIllnesses
