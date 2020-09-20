@@ -55,7 +55,7 @@ router.post('/:id/posts', async function(req, res, next) {
   //   res.status(404).end('missing symptoms');
 
 
-  post.create(username, content, title, topic, description, symptoms,
+  post.create(username, content, title, topic, description,
      community.addPost(id), user.addPost(username.replace(/\./g, '')))
 
     .then(() => res.status(200).end())
