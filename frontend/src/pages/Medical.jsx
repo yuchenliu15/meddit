@@ -35,6 +35,7 @@ const Medical = (props) => {
     const [text, setText] = useState('');
     const [token, setToken] = useCookies(['auth_token']);
     const [isLoading, setIsLoading] = useState(false);
+    const [illness, setIllness] = useState([])
     useEffect(() => {
         if (!token.auth_token) {
             history.push('/login');
@@ -49,6 +50,7 @@ const Medical = (props) => {
         setIsLoading(true);
         const fetchResult = await fetchData(text);
         setIsLoading(false);
+        setIllness(fetchResult.conditions)
     }
 
     const fetchData = async (text) => {
@@ -107,7 +109,7 @@ const Medical = (props) => {
                         </Grid> 
                         <Grid item>
                             <SymptomLog onChange={onChange} onClick={onClick}
-                                isLoading={isLoading}    
+                                isLoading={isLoading} illness={illness}
                             ></SymptomLog>
                         </Grid>
                         <Grid item>

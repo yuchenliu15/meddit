@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SymptomLog = (props) => {
     const classes = useStyles();
-    const { onChange, onClick, isLoading } = props;
+    const { onChange, onClick, isLoading, illness } = props;
     return (
         <Card className = {classes.container}>
             <CardContent className = {classes.content}>
@@ -104,7 +104,10 @@ const SymptomLog = (props) => {
                                     <Skeleton />
                                     <Skeleton  />
                                 </div>
-                                :<div>hi</div>
+                                :<ul>{
+                                illness.map(item => <li key={item.id}>{item.name}</li>)
+                                }
+                               </ul>
                         }
                         </Grid>
                 </Grid>
