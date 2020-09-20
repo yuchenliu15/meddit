@@ -40,7 +40,7 @@ const CommunityItem = (props) => {
                 <Grid container direction = "row" justify = 'space-between'>
                     <Grid item>
                         <Grid container direction = 'row' spacing = {2}>
-                            <Grid item><Typography className = {classes.postTitle}><Box fontWeight = 'bold'>{props.title}</Box></Typography></Grid>
+                            <Grid item><Box fontWeight = 'bold' className = {classes.postTitle}>{props.title}</Box></Grid>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -56,7 +56,7 @@ const CommunityItem = (props) => {
                     {(props.symptoms != null) ?
                         props.symptoms.map((select , index ) => {
                         return (
-                            <Grid item><Typography variant = 'subtitle2' className = {classes.symptoms}>{select.name}</Typography></Grid>
+                            <Grid item key={index}><Typography  variant = 'subtitle2' className = {classes.symptoms}>{select.name}</Typography></Grid>
                         )
                     }) : ' '}
                     

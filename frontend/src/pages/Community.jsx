@@ -124,7 +124,7 @@ const Community = (props) => {
                     {(posts != null) ? posts.map((select, index) => {
                         if(select != null){
                             return (
-                                <Grid item><CommunityItem title = {select.title} community = {`/${communityName}`} content = {select.content}></CommunityItem> </Grid>
+                                <Grid item key={select.timestamp}><CommunityItem key={select.timestamp} title = {select.title} community = {`/${communityName}`} content = {select.content}></CommunityItem> </Grid>
                             )
                         }
                     }): ' '}
