@@ -69,6 +69,7 @@ const Community = (props) => {
         fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ', {
             method: 'GET',
             headers: {
+                'Authorization' : token.auth_token,
                 'Accept' : 'application/json',
 
             }})
@@ -86,6 +87,7 @@ const Community = (props) => {
         fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ/posts', {
             method: 'GET',
             headers: {
+                'Authorization' : token.auth_token,
                 'Accept' : 'application/json',
 
             }})
@@ -115,7 +117,7 @@ const Community = (props) => {
                         <Grid item><CommunityItem title = {`${communityName} information & recourses`} community = "auto generated" content = {communityDescription} symptoms = {defaultSymptoms} active = {true}></CommunityItem></Grid>
                     </Grid> 
                     <Grid item>
-                        <PostCreate incrState = {incrState}></PostCreate>
+                        <PostCreate user = {props.user} token = {token.auth_token} incrState = {incrState}></PostCreate>
                     </Grid>
                     <Grid item>
                         <Grid container direction = 'row' spacing = {2} alignContent = 'stretch' alignItems = 'stretch' >
@@ -126,7 +128,7 @@ const Community = (props) => {
                             <Grid item><Typography className = {classes.filter}>Doctors</Typography></Grid>
                         </Grid>
                     </Grid> 
-                    {(posts != null) ? posts.slice().reverse().map((select, index) => {
+                    {(posts != null) ? posts.slice(0, 8).reverse().map((select, index) => {
                         if(select != null){
                             return (
                                 <Grid item key={select.timestamp}><CommunityItem key={select.timestamp} title = {select.title} community = {`/${communityName}`} content = {select.content}></CommunityItem> </Grid>

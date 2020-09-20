@@ -7,9 +7,13 @@ const user = new Users();
 router.post('/create', async function(req, res, next) {
   const username = req.body.username
   const password = req.body.password
+  const sex = req.body.sex
+  const age = req.body.age
+
+
   
   user.create(username, password)
-    .then(() => { user.createRecord(username)})
+    .then(() => { user.createRecord(username, sex, age)})
     .then(() => {
       const token = user.generateAccessToken(username)
       res.status(200).end(token)

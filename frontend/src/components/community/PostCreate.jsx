@@ -47,10 +47,11 @@ const PostCreate = (props) => {
             fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ/posts', {
                 method: 'POST',
                 headers: {
+                    'Authorization': props.token,
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({username: "doctordoc@gmail.com",content: text,title: title,topic: "All",description: description}),
+                body: JSON.stringify({username: props.user,content: text,title: title,topic: "All",description: description}),
             })
             .then((res) => {
                 // res.json();
@@ -59,6 +60,9 @@ const PostCreate = (props) => {
                 props.incrState();
                 setIsLoaded(true);
                 onCancel();
+            },
+            (error) => {
+                console.log(error);
             });
         }
     }

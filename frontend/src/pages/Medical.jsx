@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import SymptomLog from '../components/medical/SymptomLog';
-import {Grid,Typography, makeStyles, Box, Divider, GridList, Card, CardContent} from '@material-ui/core';
+import {Grid,Typography, makeStyles, Box, Divider, GridList, Card, CardContent, Button} from '@material-ui/core';
 import { useCookies } from 'react-cookie';
 import axios from 'axios'
 
@@ -34,9 +34,14 @@ const Medical = (props) => {
     } = props;
     const [text, setText] = useState('');
     const [token, setToken] = useCookies(['auth_token']);
+
     const [isLoading, setIsLoading] = useState(false);
     const [illness, setIllness] = useState([])
     const [community, setCommunity] = useState([])
+
+    const onClick = () => {
+        history.push('/community');
+
     useEffect(() => {
         if (!token.auth_token) {
             history.push('/login');
@@ -160,6 +165,7 @@ const Medical = (props) => {
 
                             </GridList>
                         </Grid>
+                        <Button onClick={onClick} color="primary">Community</Button>
                     </Grid>
                 </Grid>
             </Grid>
