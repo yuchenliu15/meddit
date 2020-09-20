@@ -84,7 +84,6 @@ const CommunityPost = (props) => {
                 setTitle(res.title);
                 setContent(res.content);
                 setTopic(res.topic);
-                setComments(res.comments);
             },
             (error) => {
                 console.log(error)
@@ -97,7 +96,7 @@ const CommunityPost = (props) => {
                 }})
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log(res);
+                    setComments(res);
                 },
                 (error) => {
                     console.log(error)
