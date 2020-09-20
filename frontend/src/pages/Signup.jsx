@@ -1,5 +1,5 @@
 import React, {useState } from 'react';
-import {Typography, Box} from '@material-ui/core';
+import {Typography, Box, TextField, Select, MenuItem} from '@material-ui/core';
 
 import { OutlinedInput, Button } from '@material-ui/core';
 import axios from 'axios'
@@ -37,26 +37,33 @@ export default ({updateUser}) => {
     }
     return (
         <div>
+            <br></br><br></br><br></br><br></br><br></br>
+
+            <Typography>
+                Username and Password
+            </Typography>
+
             <OutlinedInput onChange={onUsernameChange} type="text" />
             <OutlinedInput onChange={onPasswordChange} type="password" />
 
-            <br></br>
+            <br></br><br></br><br></br><br></br><br></br>
 
-            <Typography variant = 'subtitle2'>
-                <Box fontWeight = 'bold'>
-                    Sex
-                </Box>
+            <Typography>
+                Sex:
             </Typography>
-            <OutlinedInput onChange={onSexChange} type="text" />
+            <Select onChange={onSexChange} id="select">
+                <MenuItem value="Male">Male</MenuItem>
+                <MenuItem value="Female">Female</MenuItem>
+            </Select>
 
-            <br></br>
+            <TextField onChange={onAgeChange} type="number"
+                InputProps={{
+                    inputProps: { 
+                        max: 130, min: 6 
+                    }
+                }}
+            label="Age"/>
 
-            <Typography variant = 'subtitle2'>
-                <Box fontWeight = 'bold'>
-                    Age
-                </Box>
-            </Typography>
-            <OutlinedInput onChange={onAgeChange} type="number" />
 
             <br></br>
 
