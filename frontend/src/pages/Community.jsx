@@ -69,7 +69,7 @@ const Community = (props) => {
 
     const [communityNames, setCommunityNames] = useState([]);
 
-    const [selectedCommunity, setCommunity] = useState('');
+    const [selectedCommunity, setCommunity] = useState(null);
 
     const [newSelectedCommunity, setNewSelectedCommunity] = useState('');
 
@@ -81,11 +81,18 @@ const Community = (props) => {
 
 
     const incrState = () => {
+        setCommunityNames([]);
+        setCommunities([]);
         setRender(render + 1);
+
     };
 
     const handleCommunityChange = (event) => {
+        localStorage.setItem('selectedCommunity', event.target.value);
         setCommunity(event.target.value);
+        setCommunityNames([]);
+        setCommunities([]);
+        setRender(render + 1);
     }
 
 
@@ -104,9 +111,28 @@ const Community = (props) => {
             }})
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
-                localStorage.setItem('selectedCommunity', res.communities[0]);
-                setCommunities(res.communities);
+                if(selectedCommunity == null){
+                    localStorage.setItem('selectedCommunity', res.communities[0]);
+                }
+                
+                var idx; 
+                for(idx = 0; idx < res.communities.length; idx++){
+                    communities.push(res.communities[idx]);
+                    fetch(`http://localhost:3000/communities/${communities[idx]}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization' : token.auth_token,
+                            'Accept' : 'application/json',
+            
+                        }})
+                        .then((res) => res.json())
+                        .then((res) => {
+                            communityNames.push(res.name);
+                        },
+                        (error) => {
+                            console.log(error);
+                        });
+                }
             },
             (error) => {
                 console.log(error);
@@ -120,7 +146,6 @@ const Community = (props) => {
             }})
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
                 setCommunityName(res.name);
                 setCommunityDescription(res.description);
                 setDefaultSymptoms(res.defaultSymptoms);
@@ -143,25 +168,6 @@ const Community = (props) => {
             (error) => {
                 console.log(error);
             });
-
-            // for(var idx = 0; idx < communities.length; idx++){
-            //     fetch(`http://localhost:3000/communities/${communities[idx]}`, {
-            //         method: 'GET',
-            //         headers: {
-            //             'Authorization' : token.auth_token,
-            //             'Accept' : 'application/json',
-        
-            //         }})
-            //         .then((res) => res.json())
-            //         .then((res) => {
-            //             setCommunityName(res.name);
-            //             communityNames.push(res.name);
-            //         },
-            //         (error) => {
-            //             console.log(error);
-            //         });
-            // }
-            // console.log(communityNames);
         
     }, [render, selectedCommunity]);
 
@@ -183,10 +189,11 @@ const Community = (props) => {
                                         value={newSelectedCommunity}
                                         onChange={handleCommunityChange}
                                         >
-                                        
-                                        <MenuItem value={10}>Ten</MenuItem>
-                                        <MenuItem value={20}>Twenty</MenuItem>
-                                        <MenuItem value={30}>Thirty</MenuItem>
+                                        {communities.map((select, index) => {
+                                            return (
+                                                <MenuItem value = {select}>{communityNames[index]}</MenuItem>
+                                            )
+                                        })}
                                         </Select>
                                     </FormControl>
                                 </Grid>
@@ -205,7 +212,7 @@ const Community = (props) => {
                         <Grid item><CommunityItem title = {`${communityName} information & recourses`} community = "auto generated" content = {communityDescription} symptoms = {defaultSymptoms} active = {true}></CommunityItem></Grid>
                     </Grid> 
                     <Grid item>
-                        <PostCreate user = {localStorage.getItem('user')} token = {token.auth_token} incrState = {incrState}></PostCreate>
+                        <PostCreate user = {localStorage.getItem('user')} community_id = {selectedCommunity} token = {token.auth_token} incrState = {incrState}></PostCreate>
                     </Grid>
                     <Grid item>
                         <Grid container direction = 'row' spacing = {2} alignContent = 'stretch' alignItems = 'stretch' >
