@@ -9,11 +9,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem';
-<<<<<<< HEAD
+
 import Logo from '../assets/logo2.png';
-=======
+
 import { URL } from "../constants.js";
->>>>>>> efa7bb1c86422b57f932e6bfff77ddde79452739
+
 
 const useStyles = makeStyles((theme) => ({
     container: {
