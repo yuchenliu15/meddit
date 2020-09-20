@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import CommunityItem from '../components/community/CommunityItem';
 import {Grid, Typography, makeStyles, Box, Divider} from '@material-ui/core';
 import PostCreate from '../components/community/PostCreate';
@@ -43,7 +43,22 @@ const useStyles = makeStyles((theme) => ({
 
 const Community = (props) => {
     const classes = useStyles();
+    
+    const [render, setRender] = useState(0);
+    
     const [activeTopic, setActiveTopic] = useState('all');
+    const [communityName, setCommunityName] = useState('');
+    const [communityDescription, setCommunityDescription] = useState('');
+    const [defaultSymptoms, setDefaultSymptoms] = useState([]);
+
+    const [posts, setPosts] = useState();
+
+
+    const incrState = () => {
+        setRender(render + 1);
+    };
+
+
 
     useEffect(() => {
         fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ', {
@@ -55,12 +70,30 @@ const Community = (props) => {
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);
+                setCommunityName(res.name);
+                setCommunityDescription(res.description);
+                setDefaultSymptoms(res.defaultSymptoms);
 
             },
             (error) => {
                 console.log(error);
             });
-    }, []);
+        fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ/posts', {
+            method: 'GET',
+            headers: {
+                'Accept' : 'application/json',
+
+            }})
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                setPosts(res);
+            },
+            (error) => {
+                console.log(error);
+            });
+        
+    }, [render]);
 
     return (
         <div className = {classes.container}>
@@ -69,15 +102,15 @@ const Community = (props) => {
                 <Grid container direction = 'column' spacing = {3}>
                     <Grid item>
                         <div className = {classes.greetingsContainer}>
-                            <Typography variant ='h6'><Box fontWeight = 'bold'>Flu Discussion</Box></Typography>
-                            <Typography variant = 'subtitle2' style = {{opacity: '.7'}}>Description: This is a community for you to talk about the flu</Typography>
+                            <Typography variant ='h6'><Box fontWeight = 'bold'>{communityName}</Box></Typography>
+                            <Typography variant = 'subtitle2' style = {{opacity: '.7'}}>Description: This is a Community for people with {communityName} </Typography>
                         </div>
                     </Grid>
                     <Grid item>
-                        <Grid item><CommunityItem title = "Flu Information and Stuff" community = "auto generated" content = "Basic information about the flu" active = {true}></CommunityItem></Grid>
+                        <Grid item><CommunityItem title = {`${communityName} information & recourses`} community = "auto generated" content = {communityDescription} symptoms = {defaultSymptoms} active = {true}></CommunityItem></Grid>
                     </Grid> 
                     <Grid item>
-                        <PostCreate></PostCreate>
+                        <PostCreate incrState = {incrState}></PostCreate>
                     </Grid>
                     <Grid item>
                         <Grid container direction = 'row' spacing = {2} alignContent = 'stretch' alignItems = 'stretch' >
@@ -88,12 +121,13 @@ const Community = (props) => {
                             <Grid item><Typography className = {classes.filter}>Doctors</Typography></Grid>
                         </Grid>
                     </Grid> 
-                    <Grid item><CommunityItem title = "this is an example of a post" community = "/flu" content = "sajhdjkahdskjhadsjkhasdkjasdhkjashd adhasdjhasdkhasd adsashdjasdh asda ahsdjh sdja dahsdjahsd jasd ahj"></CommunityItem> </Grid>
-                    <Grid item><CommunityItem title = "this is an example of a post" community = "/flu" content = "sajhdjkahdskjhadsjkhasdkjasdhkjashd adhasdjhasdkhasd adsashdjasdh asda ahsdjh sdja dahsdjahsd jasd ahj"></CommunityItem> </Grid>
-                    <Grid item><CommunityItem title = "this is an example of a post" community = "/flu" content = "sajhdjkahdskjhadsjkhasdkjasdhkjashd adhasdjhasdkhasd adsashdjasdh asda ahsdjh sdja dahsdjahsd jasd ahj"></CommunityItem> </Grid>
-                    <Grid item><CommunityItem title = "this is an example of a post" community = "/flu" content = "sajhdjkahdskjhadsjkhasdkjasdhkjashd adhasdjhasdkhasd adsashdjasdh asda ahsdjh sdja dahsdjahsd jasd ahj"></CommunityItem> </Grid>
-                    <Grid item><CommunityItem title = "this is an example of a post" community = "/flu" content = "sajhdjkahdskjhadsjkhasdkjasdhkjashd adhasdjhasdkhasd adsashdjasdh asda ahsdjh sdja dahsdjahsd jasd ahj"></CommunityItem> </Grid>
-
+                    {(posts != null) ? posts.slice().reverse().map((select, index) => {
+                        if(select != null){
+                            return (
+                                <Grid item key={select.timestamp}><CommunityItem key={select.timestamp} title = {select.title} community = {`/${communityName}`} content = {select.content}></CommunityItem> </Grid>
+                            )
+                        }
+                    }): ' '}
                     
                 </Grid>
             </Grid>
