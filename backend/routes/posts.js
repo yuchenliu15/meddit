@@ -26,8 +26,10 @@ router.get('/:id/comments', async function(req, res, next) {
   //     comments.push(currentComment)
   //   }
   // }
+  if(!commentIDs)
+    res.status(200).send([])
 
-  for (let id in commentIDs){
+  for (let id of commentIDs){
     const currentComment = await comment.get(id);
     if(currentComment) {
       currentComment['id'] = id
