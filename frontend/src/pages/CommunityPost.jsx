@@ -5,6 +5,7 @@ import Comments from '../components/community/CommentSection';
 import CommentCreate from '../components/community/CommentCreate';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
+import { URL } from "../constants.js";
 
 import Image from '../assets/background.svg';
 
@@ -72,7 +73,7 @@ const CommunityPost = (props) => {
             history.push('/login');
         }
         console.log(localStorage.getItem('currentPost'));
-        fetch(`http://localhost:3000/posts/${localStorage.getItem('currentPost')}`, {
+        fetch(`${URL}/posts/${localStorage.getItem('currentPost')}`, {
             method: 'GET',
             headers: {
                 'Authorization' : token.auth_token,
@@ -88,7 +89,7 @@ const CommunityPost = (props) => {
             (error) => {
                 console.log(error)
             });
-            fetch(`http://localhost:3000/posts/${localStorage.getItem('currentPost')}/comments`, {
+            fetch(`${URL}/posts/${localStorage.getItem('currentPost')}/comments`, {
                 method: 'GET',
                 headers: {
                     'Authorization' : token.auth_token,

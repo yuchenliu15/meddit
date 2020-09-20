@@ -1,5 +1,6 @@
 import React, {useState } from 'react';
 import { useAlert } from 'react-alert';
+import { URL } from "../constants.js";
 
 import { OutlinedInput, Button, Grid, makeStyles, Typography, Input, Link, TextField, Select, MenuItem } from '@material-ui/core';
 import axios from 'axios'
@@ -67,7 +68,7 @@ export default ({updateUser}) => {
             alert.error("Please fill all parts to register!");
         }
         else{
-            axios.post('http://localhost:3000/users/create',
+            axios.post(URL+'/users/create',
             {
                 username,
                 password,

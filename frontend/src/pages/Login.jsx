@@ -3,8 +3,11 @@ import { OutlinedInput, Button, Grid, makeStyles, Typography, Input, Link } from
 import axios from 'axios'
 import { useCookies } from 'react-cookie';
 import { useHistory } from "react-router-dom";
+
 import Image from '../assets/background.svg';
 import Logo from '../assets/logo2.png';
+
+import { URL } from "../constants.js";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -38,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+
+
 export default ({updateUser}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -48,7 +53,7 @@ export default ({updateUser}) => {
     const onUsernameChange = (e) => { setUsername(e.target.value)}
     const onPasswordChange = (e) => { setPassword(e.target.value)}
     const onClick = () => {
-        axios.post('http://localhost:3000/users/login',
+        axios.post(URL+'/users/login',
             {
                 username,
                 password

@@ -3,8 +3,6 @@ import {ThemeProvider, createMuiTheme, responsiveFontSizes, makeStyles, Typograp
 
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
-
-
 import './App.css';
 import CommunityItem from './components/community/CommunityItem';
 import CommunityPost from './pages/CommunityPost';
