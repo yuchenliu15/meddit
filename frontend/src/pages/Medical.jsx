@@ -66,10 +66,6 @@ const Medical = (props) => {
     const [community, setCommunity] = useState([])
     const [yourCommunity, setYourCommunity] = useState([])
 
-    const onCommunityClick = () => {
-        history.push('/community');
-    }
-
     useEffect(async () => {
         if (!token.auth_token) {
             history.push('/login');
@@ -191,13 +187,15 @@ const Medical = (props) => {
           }
     }
 
-    const addCommunity = communityID => async () => {
+    const addCommunity = (communityID, index, info) => async () => {
       for(const item of yourCommunity) {
         if (communityID === item.id) {
-          console.log('no')
           return
         }
       }
+      community.pop(index);
+      setCommunity(community);
+      setYourCommunity([...yourCommunity, info])
       const username = localStorage.getItem('username')
       const result = await axios.put(URL+"/users/"+ username, 
       {
@@ -241,7 +239,7 @@ const Medical = (props) => {
                         <Grid item>
                             <GridList cols = {2} spacing = {5} cellHeight = 'auto'>
                             {
-                              community.map(item =>{
+                              community.map((item, index) =>{
                                 const communityID = Object.keys(item)[0]
                                 const info = item[communityID];
                                 return (
@@ -260,7 +258,7 @@ const Medical = (props) => {
 
                                         <Grid container direction = 'row' justify = 'flex-end'>
                                         <Grid item >
-                                          <Button onClick={addCommunity(communityID)} size = 'small' className = {classes.submitBtn}>+</Button>
+                                          <Button onClick={addCommunity(communityID, index, info)} size = 'small' className = {classes.submitBtn}>+</Button>
 
                                         </Grid>
 
@@ -287,7 +285,7 @@ const Medical = (props) => {
                         <Grid item>
                             <GridList cols = {2} spacing = {2} cellHeight = 'auto'>
                               {
-                                yourCommunity.map(item =>{
+                                yourCommunity.map((item) =>{
                                   return (
                                     <Grid item>
                                       <div key={item.name} className = {classes.communityContainer}>
