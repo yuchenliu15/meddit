@@ -12,12 +12,11 @@ const CommentSection = (props) => {
     
     return (
         <Grid container direction = 'column'>
-            <Grid item><Comment></Comment></Grid>
-            <Grid item><Comment></Comment></Grid>
-            <Grid item><Comment></Comment></Grid>
-            <Grid item><Comment></Comment></Grid>
-            <Grid item><Comment></Comment></Grid>
-            <Grid item><Comment></Comment></Grid>
+            {(props.comments != undefined) ? props.comments.map((select, index) => {
+                return (
+                    <Grid item><Comment token = {props.token} id = {select}></Comment></Grid>
+                )
+            }): ''}
         </Grid>
 
     )

@@ -37,6 +37,8 @@ const PostCreate = (props) => {
     const [description, setDescription] = useState('');
 
     const [isLoaded, setIsLoaded] = useState(true);
+
+    
     
 
     const onSubmit = () => {
@@ -44,14 +46,14 @@ const PostCreate = (props) => {
             setIsLoaded(false);
         }
         if(text != null | title != null){
-            fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ/posts', {
+            fetch(`http://localhost:3000/communities/${props.community_id}/posts`, {
                 method: 'POST',
                 headers: {
                     'Authorization': props.token,
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({username: props.user,content: text,title: title,topic: "All",description: description}),
+                body: JSON.stringify({username: localStorage.getItem('user'),content: text,title: title,topic: "All",description: description}),
             })
             .then((res) => {
                 // res.json();

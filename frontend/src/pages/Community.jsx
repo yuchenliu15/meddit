@@ -5,6 +5,10 @@ import PostCreate from '../components/community/PostCreate';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
 import Image from '../assets/background.svg';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -38,6 +42,17 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.08)',
         borderRadius: '4px',
         color: '#fff',
+    },
+    textInput: {
+        color: '#AEAEAE',
+        width: '500px'
+    },
+    topBar: {
+        // boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+        // background: '#DADFE6',
+        // padding: '1rem 3rem',
+        // borderRadius: '4px',
+        color: '#000000',
     }
     
 }));
@@ -49,6 +64,15 @@ const Community = (props) => {
 
     const [render, setRender] = useState(0);
     const [activeTopic, setActiveTopic] = useState('all');
+
+    const [communities, setCommunities] = useState([]);
+
+    const [communityNames, setCommunityNames] = useState([]);
+
+    const [selectedCommunity, setCommunity] = useState(null);
+
+    const [newSelectedCommunity, setNewSelectedCommunity] = useState('');
+
     const [communityName, setCommunityName] = useState('');
     const [communityDescription, setCommunityDescription] = useState('');
     const [defaultSymptoms, setDefaultSymptoms] = useState([]);
@@ -57,8 +81,20 @@ const Community = (props) => {
 
 
     const incrState = () => {
+        setCommunityNames([]);
+        setCommunities([]);
         setRender(render + 1);
+
     };
+
+    const handleCommunityChange = (event) => {
+        localStorage.setItem('selectedCommunity', event.target.value);
+        setCommunity(event.target.value);
+        setCommunityNames([]);
+        setCommunities([]);
+        setRender(render + 1);
+    }
+
 
 
 
@@ -66,7 +102,7 @@ const Community = (props) => {
         if (!token.auth_token) {
             history.push('/login');
         }
-        fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ', {
+        fetch(`http://localhost:3000/users/${localStorage.getItem('user')}`, {
             method: 'GET',
             headers: {
                 'Authorization' : token.auth_token,
@@ -75,7 +111,41 @@ const Community = (props) => {
             }})
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
+                if(selectedCommunity == null){
+                    localStorage.setItem('selectedCommunity', res.communities[0]);
+                }
+                
+                var idx; 
+                for(idx = 0; idx < res.communities.length; idx++){
+                    communities.push(res.communities[idx]);
+                    fetch(`http://localhost:3000/communities/${communities[idx]}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization' : token.auth_token,
+                            'Accept' : 'application/json',
+            
+                        }})
+                        .then((res) => res.json())
+                        .then((res) => {
+                            communityNames.push(res.name);
+                        },
+                        (error) => {
+                            console.log(error);
+                        });
+                }
+            },
+            (error) => {
+                console.log(error);
+            });
+        fetch(`http://localhost:3000/communities/${localStorage.getItem('selectedCommunity')}`, {
+            method: 'GET',
+            headers: {
+                'Authorization' : token.auth_token,
+                'Accept' : 'application/json',
+
+            }})
+            .then((res) => res.json())
+            .then((res) => {
                 setCommunityName(res.name);
                 setCommunityDescription(res.description);
                 setDefaultSymptoms(res.defaultSymptoms);
@@ -84,12 +154,11 @@ const Community = (props) => {
             (error) => {
                 console.log(error);
             });
-        fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ/posts', {
+        fetch(`http://localhost:3000/communities/${localStorage.getItem('selectedCommunity')}/posts`, {
             method: 'GET',
             headers: {
                 'Authorization' : token.auth_token,
                 'Accept' : 'application/json',
-
             }})
             .then((res) => res.json())
             .then((res) => {
@@ -100,13 +169,39 @@ const Community = (props) => {
                 console.log(error);
             });
         
-    }, [render]);
+    }, [render, selectedCommunity]);
+
 
     return (
         <div className = {classes.container}>
             <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
             <Grid item xs={12} md={6} lg={7} xl={7} style={{marginLeft: '1rem', marginTop: '1rem', height: '80vmin'}}>
                 <Grid container direction = 'column' spacing = {3}>
+                    <Grid item>
+                        <div className = {classes.topBar}>
+                            <Grid container = 'row' spacing = {2}  justify="space-between">
+                                <Grid item>
+                                    <FormControl className={classes.textInput}>
+                                        <InputLabel id="demo-simple-select-label">Your Commuities</InputLabel>
+                                        <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        value={newSelectedCommunity}
+                                        onChange={handleCommunityChange}
+                                        >
+                                        {communities.map((select, index) => {
+                                            return (
+                                                <MenuItem value = {select}>{communityNames[index]}</MenuItem>
+                                            )
+                                        })}
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                {/* <Grid item onClick = {() => {history.push('/community')}}><Typography variant = 'subtitle1'>X Close</Typography></Grid>  */}
+                            </Grid>
+                        </div>
+
+                    </Grid>
                     <Grid item>
                         <div className = {classes.greetingsContainer}>
                             <Typography variant ='h6'><Box fontWeight = 'bold'>{communityName}</Box></Typography>
@@ -117,7 +212,7 @@ const Community = (props) => {
                         <Grid item><CommunityItem title = {`${communityName} information & recourses`} community = "auto generated" content = {communityDescription} symptoms = {defaultSymptoms} active = {true}></CommunityItem></Grid>
                     </Grid> 
                     <Grid item>
-                        <PostCreate user = {props.user} token = {token.auth_token} incrState = {incrState}></PostCreate>
+                        <PostCreate user = {localStorage.getItem('user')} community_id = {selectedCommunity} token = {token.auth_token} incrState = {incrState}></PostCreate>
                     </Grid>
                     <Grid item>
                         <Grid container direction = 'row' spacing = {2} alignContent = 'stretch' alignItems = 'stretch' >
@@ -128,10 +223,10 @@ const Community = (props) => {
                             <Grid item><Typography className = {classes.filter}>Doctors</Typography></Grid>
                         </Grid>
                     </Grid> 
-                    {(posts != null) ? posts.slice(0, 8).reverse().map((select, index) => {
+                    {(posts != null) ? posts.slice().reverse().map((select, index) => {
                         if(select != null){
                             return (
-                                <Grid item key={select.timestamp}><CommunityItem key={select.timestamp} title = {select.title} community = {`/${communityName}`} content = {select.content}></CommunityItem> </Grid>
+                                <Grid item key={select.timestamp}><CommunityItem key={select.timestamp} id = {select.id} title = {select.title} community = {`/${communityName}`} content = {select.content} ></CommunityItem> </Grid>
                             )
                         }
                     }): ' '}

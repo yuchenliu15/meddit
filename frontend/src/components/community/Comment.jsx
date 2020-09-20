@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Typography, Box, makeStyles, CardContent, Card, Grid} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -12,6 +12,26 @@ const useStyles = makeStyles((theme) => ({
 
 const Comment = (props) => {
     const classes = useStyles();
+
+    useEffect(() => {
+        console.log(props.id);
+        if(props.id != null){
+            fetch(`http://localhost:3000/posts/${localStorage.getItem('currentPost')}/comments/${props.id}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization' : props.token,
+                    'Accept': 'application/json',
+                }})
+                .then((res) => res.json())
+                .then((res) => {
+                    console.log(res);
+                },
+                (error) => {
+                    console.log(error);
+                });
+        }
+
+    })
     return (
         <Card className = {classes.comment}>
             <CardContent>
