@@ -235,7 +235,7 @@ const Medical = (props) => {
                         <Grid item>
                           <Grid container direction = 'row' justify = 'space-between'>
                             <Grid item><Typography variant = 'h6'><Box fontWeight = 'bold'>Some Communities You might want to Join</Box></Typography></Grid>
-                            <Grid item><Button onClick={() => {history.push('/community')}} className = {classes.button}>Go to Your Home Page</Button></Grid>
+                            <Grid item><Button href = "/community" className = {classes.button}>Go to Your Home Page</Button></Grid>
                           </Grid>
                         </Grid>
                         <Grid item>
