@@ -110,7 +110,7 @@ const Community = (props) => {
                         <Grid item><CommunityItem title = {`${communityName} information & recourses`} community = "auto generated" content = {communityDescription} symptoms = {defaultSymptoms} active = {true}></CommunityItem></Grid>
                     </Grid> 
                     <Grid item>
-                        <PostCreate incrState = {incrState()}></PostCreate>
+                        <PostCreate incrState = {incrState}></PostCreate>
                     </Grid>
                     <Grid item>
                         <Grid container direction = 'row' spacing = {2} alignContent = 'stretch' alignItems = 'stretch' >
