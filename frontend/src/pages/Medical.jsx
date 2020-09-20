@@ -57,8 +57,8 @@ const Medical = (props) => {
               },
               {
                 headers: {
-                  'App-Id': process.env.API_APP_ID,
-                  'App-Key': process.env.API_APP_KEY,
+                  'App-Id': process.env.REACT_APP_ZAPI_APP_ID,
+                  'App-Key': process.env.REACT_APP_API_APP_KEY,
                   'Content-Type': 'application/json'
                 }
               })
@@ -81,8 +81,8 @@ const Medical = (props) => {
               },
               {
                 headers: {
-                  'App-Id': process.env.API_APP_ID,
-                  'App-Key': process.env.API_APP_KEY,
+                  'App-Id': process.env.REACT_APP_ZAPI_APP_ID,
+                  'App-Key': process.env.REACT_APP_API_APP_KEY,
                   'Content-Type': 'application/json'
                 }
               })
