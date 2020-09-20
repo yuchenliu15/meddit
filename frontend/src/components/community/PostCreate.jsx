@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Card, Grid, CardContent, makeStyles, Divider, Typography, CheckBox} from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
+import { URL } from "../../constants.js";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -46,7 +47,7 @@ const PostCreate = (props) => {
             setIsLoaded(false);
         }
         if(text != null | title != null){
-            fetch(`http://localhost:3000/communities/${props.community_id}/posts`, {
+            fetch(`${URL}/communities/${props.community_id}/posts`, {
                 method: 'POST',
                 headers: {
                     'Authorization': props.token,

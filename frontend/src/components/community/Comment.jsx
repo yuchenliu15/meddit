@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Typography, Box, makeStyles, CardContent, Card, Grid} from '@material-ui/core';
+import { URL } from "../../constants.js";
 
 const useStyles = makeStyles((theme) => ({
     comment: {
@@ -16,7 +17,7 @@ const Comment = (props) => {
     useEffect(() => {
         console.log(props.id);
         if(props.id != null){
-            fetch(`http://localhost:3000/posts/${localStorage.getItem('currentPost')}/comments/${props.id}`, {
+            fetch(`${URL}/posts/${localStorage.getItem('currentPost')}/comments/${props.id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization' : props.token,
