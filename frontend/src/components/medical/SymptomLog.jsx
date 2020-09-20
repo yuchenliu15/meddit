@@ -113,7 +113,7 @@ const SymptomLog = (props) => {
                 </Grid>
                 <Grid container justify = 'flex-end' style = {{paddingTop: '10px'}}>
                     <Grid item>
-                        <Button onClick={onClick} size = 'small' className = {classes.submitBtn}>Save</Button>
+                        <Button onClick={onClick} size = 'small' className = {classes.submitBtn}>search</Button>
                     </Grid>
                 </Grid>
             </CardContent>

@@ -26,11 +26,22 @@ const useStyles = makeStyles((theme) => ({
     },
     communityContainer: {
       boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-      background: '#9066FF',
+      background: '#ced6e0',
       padding: '1rem 3rem',
       borderRadius: '4px',
       color: '#fff',
-      width: '450px'
+      width: '450px',
+      display: 'flex',
+      flex: 'row',
+      justifyContent: 'space-between'
+  },
+    submitBtn: {
+      maxHeight: '70px',
+      maxWidth: '70px',
+      backgroundColor: '#47C594',
+      color: '#fff',
+      textTransform: 'none',
+      fontSize: '40px'
   },
 }));
 
@@ -178,8 +189,13 @@ const Medical = (props) => {
                             const info = item[communityID];
                             return (
                             <div key={info.name} className = {classes.communityContainer}>
+                              <div>
                               <Typography variant ='h6'><Box fontWeight = 'bold'>{info.name}</Box></Typography>
                               <Typography variant = 'subtitle2' style = {{opacity: '.7'}}>This is a Community for people with {item.name} </Typography>
+                              </div>
+
+                              <Button onClick={onClick} size = 'small' className = {classes.submitBtn}>+</Button>
+
                             </div>)
                             })
                         }
