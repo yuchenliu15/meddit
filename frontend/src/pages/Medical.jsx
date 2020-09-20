@@ -48,9 +48,11 @@ const Medical = (props) => {
 
     const onClick = async (e) => {
         setIsLoading(true);
+        setIllness([]);
         const fetchResult = await fetchData(text);
         setIsLoading(false);
-        setIllness(fetchResult.conditions)
+        if(fetchResult)
+            setIllness(fetchResult.conditions)
     }
 
     const fetchData = async (text) => {
