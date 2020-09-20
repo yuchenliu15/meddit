@@ -3,6 +3,8 @@ import {Grid, Fade, Button, makeStyles, Typography, Box, CardContent, Card, Divi
 import Post from '../components/community/Post';
 import Comments from '../components/community/CommentSection';
 import CommentCreate from '../components/community/CommentCreate';
+import { useCookies } from 'react-cookie';
+import { useHistory } from 'react-router-dom';
 
 import Image from '../assets/background.svg';
 
@@ -51,6 +53,15 @@ const useStyles = makeStyles((theme) => ({
 
 const CommunityPost = (props) => {
     const classes = useStyles();
+    const history = useHistory();
+
+    const [token, setToken] = useCookies(['auth_token']);
+    useEffect(() => {
+        if (!token.auth_token) {
+            history.push('/login');
+        }
+    }, [])
+
     return (
         <div className = {classes.container}>
             <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>

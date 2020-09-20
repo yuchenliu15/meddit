@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import CommunityItem from '../components/community/CommunityItem';
 import {Grid, Typography, makeStyles, Box, Divider} from '@material-ui/core';
 import PostCreate from '../components/community/PostCreate';
-
+import { useCookies } from 'react-cookie';
+import { useHistory } from 'react-router-dom';
 import Image from '../assets/background.svg';
 
 const useStyles = makeStyles((theme) => ({
@@ -43,9 +44,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Community = (props) => {
     const classes = useStyles();
-    
+    const [token, setToken] = useCookies(['auth_token']);
+    const history = useHistory();
+
     const [render, setRender] = useState(0);
-    
     const [activeTopic, setActiveTopic] = useState('all');
     const [communityName, setCommunityName] = useState('');
     const [communityDescription, setCommunityDescription] = useState('');
@@ -61,6 +63,9 @@ const Community = (props) => {
 
 
     useEffect(() => {
+        if (!token.auth_token) {
+            history.push('/login');
+        }
         fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ', {
             method: 'GET',
             headers: {
