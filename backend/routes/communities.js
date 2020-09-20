@@ -16,9 +16,10 @@ router.get('/find/:name', function(req, res, next) {
   community.find(name)
     .then(data => {
       if(data) {
+        console.log(data)
         res.status(200).send(data)
       } else {
-        res.status(200).send(null)
+        res.status(200).send(false)
       }
     })
     .catch(e => {
@@ -111,7 +112,10 @@ router.get('/:id', function(req, res, next) {
     res.status(404).end('missing id');
   
   community.get(id)
-    .then(data => res.status(200).send(data))
+    .then(data => {
+      data.id = id;
+      res.status(200).send(data)
+    })
     .catch(e => res.status(400).send(e.code))
 
 });

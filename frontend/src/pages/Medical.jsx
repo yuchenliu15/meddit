@@ -57,15 +57,40 @@ const Medical = (props) => {
     const [isLoading, setIsLoading] = useState(false);
     const [illness, setIllness] = useState([])
     const [community, setCommunity] = useState([])
+    const [yourCommunity, setYourCommunity] = useState([])
 
     const onCommunityClick = () => {
         history.push('/community');
     }
 
-    useEffect(() => {
+    useEffect(async () => {
         if (!token.auth_token) {
             history.push('/login');
         }
+        const username = localStorage.getItem('username')
+
+        const result = await axios.get("http://localhost:3000/users/"+username, 
+        {
+          headers: {
+            Authorization: token.auth_token
+
+          }
+        })
+        const currentCommunity = []
+        if(result.data && result.data.communities) {
+          for(const co of result.data.communities) {
+            const current = await axios.get("http://localhost:3000/communities/"+co, 
+            {
+              headers: {
+                Authorization: token.auth_token
+
+              }
+            })
+            currentCommunity.push(current.data)
+          }
+
+        }
+        setYourCommunity(currentCommunity)
     }, [])
 
     const onChange = (e) => {        
@@ -160,6 +185,12 @@ const Medical = (props) => {
     }
 
     const addCommunity = communityID => async () => {
+      for(const item of yourCommunity) {
+        if (communityID === item.id) {
+          console.log('no')
+          return
+        }
+      }
       const username = localStorage.getItem('username')
       const result = await axios.put("http://localhost:3000/users/"+ username, 
       {
@@ -181,7 +212,7 @@ const Medical = (props) => {
                     <Grid container direction = 'column' spacing = {3}>
                         <Grid item>
                             <div className = {classes.greetingsContainer}>
-                                <Typography variant = 'h5'><Box fontWeight = 'bold'>Welcome to Meddit, Name </Box></Typography>
+                                <Typography variant = 'h5'><Box fontWeight = 'bold'>Welcome to Meddit, {localStorage.getItem('username')} </Box></Typography>
                                 <Typography variant = 'subtitle2' style = {{opacity: '.7'}}>Please enter how you are feeling so we can add you to a community of people who feel the same way</Typography>
                             </div>
                         </Grid> 
@@ -214,7 +245,26 @@ const Medical = (props) => {
                             </div>)
                             })
                         }
+                        <Grid item>
+                            <Typography variant = 'h6'><Box fontWeight = 'bold'>Your communities</Box></Typography>
+                        </Grid>
+                        <Grid item>
+                            <GridList cols = {3} spacing = {1} cellHeight = 'auto'>
 
+                            </GridList>
+                        </Grid>
+                        {
+                          yourCommunity.map(item =>{
+                            return (
+                            <div key={item.name} className = {classes.communityContainer}>
+                              <div>
+                              <Typography variant ='h6'><Box fontWeight = 'bold'>{item.name}</Box></Typography>
+                              <Typography variant = 'subtitle2' style = {{opacity: '.7'}}>This is a Community for people with {item.name} </Typography>
+                              </div>
+
+                            </div>)
+                            })
+                        }
                     </Grid>
                 </Grid>
             </Grid>
