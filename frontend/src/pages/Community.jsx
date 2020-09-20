@@ -93,7 +93,7 @@ const Community = (props) => {
                 console.log(error);
             });
         
-    }, []);
+    }, [render]);
 
     return (
         <div className = {classes.container}>
@@ -121,7 +121,7 @@ const Community = (props) => {
                             <Grid item><Typography className = {classes.filter}>Doctors</Typography></Grid>
                         </Grid>
                     </Grid> 
-                    {(posts != null) ? posts.map((select, index) => {
+                    {(posts != null) ? posts.slice().reverse().map((select, index) => {
                         if(select != null){
                             return (
                                 <Grid item key={select.timestamp}><CommunityItem key={select.timestamp} title = {select.title} community = {`/${communityName}`} content = {select.content}></CommunityItem> </Grid>

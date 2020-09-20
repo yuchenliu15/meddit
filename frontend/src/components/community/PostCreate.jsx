@@ -52,10 +52,13 @@ const PostCreate = (props) => {
                 },
                 body: JSON.stringify({username: "doctordoc@gmail.com",content: text,title: title,topic: "All",description: description}),
             })
-            .then((res) => res.json())
             .then((res) => {
+                // res.json();
+            })
+            .then(() => {
                 props.incrState();
                 setIsLoaded(true);
+                onCancel();
             });
         }
     }
