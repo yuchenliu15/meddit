@@ -5,6 +5,10 @@ import PostCreate from '../components/community/PostCreate';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
 import Image from '../assets/background.svg';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -38,6 +42,17 @@ const useStyles = makeStyles((theme) => ({
         boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.08)',
         borderRadius: '4px',
         color: '#fff',
+    },
+    textInput: {
+        color: '#AEAEAE',
+        width: '500px'
+    },
+    topBar: {
+        // boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+        // background: '#DADFE6',
+        // padding: '1rem 3rem',
+        // borderRadius: '4px',
+        color: '#000000',
     }
     
 }));
@@ -49,6 +64,8 @@ const Community = (props) => {
 
     const [render, setRender] = useState(0);
     const [activeTopic, setActiveTopic] = useState('all');
+
+    const [selectedCommunity, setCommunity] = useState('');
     const [communityName, setCommunityName] = useState('');
     const [communityDescription, setCommunityDescription] = useState('');
     const [defaultSymptoms, setDefaultSymptoms] = useState([]);
@@ -67,7 +84,21 @@ const Community = (props) => {
         if (!token.auth_token) {
             history.push('/login');
         }
-        console.log(posts);
+        fetch(`http://localhost:3000/user/${localStorage.getItem('user')}/communities`, {
+            method: 'GET',
+            headers: {
+                'Authorization' : token.auth_token,
+                'Accept' : 'application/json',
+
+            }})
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+
+            },
+            (error) => {
+                console.log(error);
+            });
         fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ', {
             method: 'GET',
             headers: {
@@ -101,7 +132,7 @@ const Community = (props) => {
                 console.log(error);
             });
         
-    }, [render]);
+    }, [render, selectedCommunity]);
 
 
     return (
@@ -109,6 +140,29 @@ const Community = (props) => {
             <Grid container direction = 'row' spacing = {2} justify = 'center' alignItems = 'stretch' alignContent = 'stretch'>
             <Grid item xs={12} md={6} lg={7} xl={7} style={{marginLeft: '1rem', marginTop: '1rem', height: '80vmin'}}>
                 <Grid container direction = 'column' spacing = {3}>
+                    <Grid item>
+                        <div className = {classes.topBar}>
+                            <Grid container = 'row' spacing = {2}  justify="space-between">
+                                <Grid item>
+                                    <FormControl className={classes.textInput}>
+                                        <InputLabel id="demo-simple-select-label">Your Commuities</InputLabel>
+                                        <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        // value={age}
+                                        // onChange={handleChange}
+                                        >
+                                        <MenuItem value={10}>Ten</MenuItem>
+                                        <MenuItem value={20}>Twenty</MenuItem>
+                                        <MenuItem value={30}>Thirty</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </Grid>
+                                {/* <Grid item onClick = {() => {history.push('/community')}}><Typography variant = 'subtitle1'>X Close</Typography></Grid>  */}
+                            </Grid>
+                        </div>
+
+                    </Grid>
                     <Grid item>
                         <div className = {classes.greetingsContainer}>
                             <Typography variant ='h6'><Box fontWeight = 'bold'>{communityName}</Box></Typography>
