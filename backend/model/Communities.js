@@ -43,6 +43,11 @@ class Communities {
         return this.db.ref('/Communities/' + id)
             .once('value').then(snapshot => snapshot.val());
     }
+
+    find(name) {
+        return this.db.ref('/Communities/').orderByChild("name")
+            .equalTo(name).once('value').then(snapshot => snapshot.val());
+    }
 }
 
 module.exports = Communities;
