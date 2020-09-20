@@ -19,6 +19,7 @@ export default ({updateUser}) => {
                 password
             }).then((res) => {
                 updateUser({id: username})
+                localStorage.setItem('username', username)
                 setToken('auth_token', res.data)
                 history.push({pathname: '/'});
                 localStorage.setItem('user', username)

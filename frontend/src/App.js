@@ -1,5 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {ThemeProvider, createMuiTheme, responsiveFontSizes, makeStyles, Typography, Grid} from '@material-ui/core';
+
+import { positions, Provider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
+
 import './App.css';
 import CommunityItem from './components/community/CommunityItem';
 import CommunityPost from './pages/CommunityPost';
@@ -18,7 +23,10 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
+const notificationOptions = {
+  timeout: 5000,
+  position: positions.BOTTOM_CENTER
+};
 
 const App = (props) => {
   const classes = useStyles();
@@ -32,26 +40,28 @@ const App = (props) => {
   return (
     <Router>
       <div>
-        <Switch>
-          <Route path="/post">
-            <CommunityPost></CommunityPost> 
-          </Route>
-          <Route path="/community">
-            <Community></Community>
-          </Route>
-          <Route path="/signup">
-            <Singup updateUser={updateUser} ></Singup>
-          </Route>
-          <Route path="/login">
-            <Login updateUser={updateUser} ></Login>
-          </Route>
-          <Route exact path="/">
-            <Medical user={user}></Medical>
-          </Route>
-          <Route path="*">
-            <NotFound></NotFound>
-          </Route>
-        </Switch>
+        <Provider template={AlertTemplate} {...notificationOptions}>
+          <Switch>
+            <Route path="/post">
+              <CommunityPost></CommunityPost> 
+            </Route>
+            <Route path="/community">
+              <Community user = {user}></Community>
+            </Route>
+            <Route path="/signup">
+              <Singup updateUser={updateUser} ></Singup>
+            </Route>
+            <Route path="/login">
+              <Login updateUser={updateUser} ></Login>
+            </Route>
+            <Route exact path="/">
+              <Medical user={user}></Medical>
+            </Route>
+            <Route path="*">
+              <NotFound></NotFound>
+            </Route>
+          </Switch>
+        </Provider>
       </div>
     </Router>
     

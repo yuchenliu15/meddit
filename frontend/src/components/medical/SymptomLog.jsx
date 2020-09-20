@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import {Button, Card, CircularProgress, Grid, CardContent, makeStyles, Divider, Typography, Checkbox} from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
-
+import Skeleton from '@material-ui/lab/Skeleton';
 const useStyles = makeStyles((theme) => ({
+    root: {
+        width: 600,
+    },
     container: {
         boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.08)',
         height: '100%',
@@ -78,11 +81,13 @@ const useStyles = makeStyles((theme) => ({
 
 const SymptomLog = (props) => {
     const classes = useStyles();
+    const { onChange, onClick, isLoading, illness } = props;
     return (
         <Card className = {classes.container}>
             <CardContent className = {classes.content}>
                 <InputBase
                     className = {classes.content}
+                    onChange={onChange}
                     multiline
                     rows = {2}
                     placeholder = "I have a fever, and a cough. I have also been feeling nauseous lately"
@@ -91,11 +96,24 @@ const SymptomLog = (props) => {
                 />
                 <Divider />
                 <Grid container direction = 'row'>
-                    <Grid item><Typography style = {{paddingTop: '10px'}}>Symptoms Recognized: </Typography></Grid>
+                    <Grid item>
+                        <Typography style = {{paddingTop: '10px'}}>Symptoms Recognized: </Typography>
+                            {isLoading 
+                                ?<div>
+                                    <Skeleton width={600}/>
+                                    <Skeleton />
+                                    <Skeleton  />
+                                </div>
+                                :<ul>{
+                                illness.map(item => <li key={item.id}>{item.name}</li>)
+                                }
+                               </ul>
+                        }
+                        </Grid>
                 </Grid>
                 <Grid container justify = 'flex-end' style = {{paddingTop: '10px'}}>
                     <Grid item>
-                        <Button size = 'small' className = {classes.submitBtn}>Save</Button>
+                        <Button onClick={onClick} size = 'small' className = {classes.submitBtn}>search</Button>
                     </Grid>
                 </Grid>
             </CardContent>
