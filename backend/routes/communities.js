@@ -74,7 +74,10 @@ router.get('/:id/posts', async function(req, res, next) {
   const posts = [];
   for(const id of postIDs) {
     const currentPost = await post.get(id);
-    posts.push(currentPost)
+    if(currentPost) {
+      currentPost.id = id;
+      posts.push(currentPost)
+    }
   }
 
   res.status(200).send(posts)
