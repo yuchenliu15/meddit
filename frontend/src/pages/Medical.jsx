@@ -34,6 +34,7 @@ const Medical = (props) => {
     } = props;
     const [text, setText] = useState('');
     const [token, setToken] = useCookies(['auth_token']);
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
         if (!token.auth_token) {
             history.push('/login');
@@ -45,8 +46,9 @@ const Medical = (props) => {
     }
 
     const onClick = async (e) => {
+        setIsLoading(true);
         const fetchResult = await fetchData(text);
-        console.log(fetchResult)
+        setIsLoading(false);
     }
 
     const fetchData = async (text) => {
@@ -104,7 +106,9 @@ const Medical = (props) => {
                             </div>
                         </Grid> 
                         <Grid item>
-                            <SymptomLog onChange={onChange} onClick={onClick} ></SymptomLog>
+                            <SymptomLog onChange={onChange} onClick={onClick}
+                                isLoading={isLoading}    
+                            ></SymptomLog>
                         </Grid>
                         <Grid item>
                             <Typography variant = 'h6'><Box fontWeight = 'bold'>Some Communities You might want to Join</Box></Typography>
