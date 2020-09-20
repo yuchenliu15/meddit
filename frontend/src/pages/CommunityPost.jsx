@@ -54,15 +54,25 @@ const useStyles = makeStyles((theme) => ({
 const CommunityPost = (props) => {
     const classes = useStyles();
     const history = useHistory();
-    const [currentPost, setCurrentPost] = useState('');
 
     const [token, setToken] = useCookies(['auth_token']);
+
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [topic, setTopic] = useState('');
+    const [render, setRender] = useState(0);
+
+    const [comments, setComments] = useState([]);
+
+    const incrState = () => {
+        setRender(render + 1);
+    }
     useEffect(() => {
         if (!token.auth_token) {
             history.push('/login');
         }
-        setCurrentPost(localStorage.getItem('currentPost'));
-        fetch(`http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ/posts/${currentPost}`, {
+        console.log(localStorage.getItem('currentPost'));
+        fetch(`http://localhost:3000/posts/${localStorage.getItem('currentPost')}`, {
             method: 'GET',
             headers: {
                 'Authorization' : token.auth_token,
@@ -71,11 +81,28 @@ const CommunityPost = (props) => {
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);
+                setTitle(res.title);
+                setContent(res.content);
+                setTopic(res.topic);
+                setComments(res.comments);
             },
             (error) => {
                 console.log(error)
             });
-    }, [])
+            fetch(`http://localhost:3000/posts/${localStorage.getItem('currentPost')}/comments`, {
+                method: 'GET',
+                headers: {
+                    'Authorization' : token.auth_token,
+                    'Accept': 'application/json',
+                }})
+                .then((res) => res.json())
+                .then((res) => {
+                    console.log(res);
+                },
+                (error) => {
+                    console.log(error)
+                });
+    }, [render])
 
     return (
         <div className = {classes.container}>
@@ -85,22 +112,22 @@ const CommunityPost = (props) => {
                         <Grid item>
                             <div className = {classes.topBar}>
                                 <Grid container = 'row' spacing = {2}  justify="space-between">
-                                    <Grid item><Typography variant = 'subtitle1'>/Flu - What should I do if I have the Flu? </Typography> </Grid>
+                                    <Grid item><Typography variant = 'subtitle1'>{title} </Typography> </Grid>
                                     <Grid item onClick = {() => {history.push('/community')}}><Typography variant = 'subtitle1'>X Close</Typography></Grid> 
                                 </Grid>
                             </div>
                         </Grid>
                         <Grid item>
                             <div className = {classes.post}>
-                                <Post></Post>
+                                <Post title = {title} content = {content} topic = {topic}></Post>
                             </div>
                         </Grid>
                         <Grid item>
-                            <CommentCreate></CommentCreate>
+                            <CommentCreate token = {token.auth_token} incrState = {incrState}></CommentCreate>
                         </Grid>
                         <Divider />
                         <Grid item>
-                            <Comments></Comments>
+                            <Comments comments = {comments} token = {token.auth_token}></Comments>
                         </Grid> 
                     </Grid>
                 </Grid>
