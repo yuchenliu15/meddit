@@ -36,27 +36,26 @@ const PostCreate = (props) => {
     const [text, setText] = useState('');
     const [description, setDescription] = useState('');
 
+    const [isLoaded, setIsLoaded] = useState(true);
+    
+
     const onSubmit = () => {
+        if (isLoaded) {
+            setIsLoaded(false);
+        }
         if(text != null | title != null){
             fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ/posts', {
                 method: 'POST',
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    username: 'doctordoc@gmail.com',
-                    content: `${text}`,
-                    title: `${title}`,
-                    topic: 'All',
-                    description: `${description}`,
-                })
+                body: JSON.stringify({username: "doctordoc@gmail.com",content: text,title: title,topic: "All",description: description}),
             })
             .then((res) => res.json())
             .then((res) => {
                 props.incrState();
-            },
-            (error) => {
-                console.log(error);
+                setIsLoaded(true);
             });
         }
     }

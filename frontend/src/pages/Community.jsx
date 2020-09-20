@@ -53,9 +53,10 @@ const Community = (props) => {
 
     const [posts, setPosts] = useState();
 
+
     const incrState = () => {
         setRender(render + 1);
-    }
+    };
 
 
 
@@ -109,7 +110,7 @@ const Community = (props) => {
                         <Grid item><CommunityItem title = {`${communityName} information & recourses`} community = "auto generated" content = {communityDescription} symptoms = {defaultSymptoms} active = {true}></CommunityItem></Grid>
                     </Grid> 
                     <Grid item>
-                        <PostCreate></PostCreate>
+                        <PostCreate incrState = {incrState()}></PostCreate>
                     </Grid>
                     <Grid item>
                         <Grid container direction = 'row' spacing = {2} alignContent = 'stretch' alignItems = 'stretch' >
