@@ -3,6 +3,7 @@ import SymptomLog from '../components/medical/SymptomLog';
 import {Grid,Typography, makeStyles, Box, Divider, GridList, Card, CardContent, Button} from '@material-ui/core';
 import { useCookies } from 'react-cookie';
 import axios from 'axios'
+import { URL } from "../constants.js";
 
 import Image from '../assets/background.svg';
 import { useHistory } from 'react-router-dom';
@@ -69,7 +70,7 @@ const Medical = (props) => {
         }
         const username = localStorage.getItem('username')
 
-        const result = await axios.get("http://localhost:3000/users/"+username, 
+        const result = await axios.get(URL+"/users/"+username, 
         {
           headers: {
             Authorization: token.auth_token
@@ -79,7 +80,7 @@ const Medical = (props) => {
         const currentCommunity = []
         if(result.data && result.data.communities) {
           for(const co of result.data.communities) {
-            const current = await axios.get("http://localhost:3000/communities/"+co, 
+            const current = await axios.get(URL+"/communities/"+co, 
             {
               headers: {
                 Authorization: token.auth_token
@@ -107,7 +108,7 @@ const Medical = (props) => {
           setIllness(fetchResult.conditions)
           const currentCommunities = []
           for(const item of fetchResult.conditions) {
-            let itemExists = await axios.get("http://localhost:3000/communities/find/"+item.name, 
+            let itemExists = await axios.get(URL+"/communities/find/"+item.name, 
             {
               headers: {
                 Authorization: token.auth_token
@@ -117,7 +118,7 @@ const Medical = (props) => {
             if(itemExists.data){
               currentCommunities.push(itemExists.data)
             }else{
-              let itemExists = await axios.post("http://localhost:3000/communities/", 
+              let itemExists = await axios.post(URL+"/communities/", 
               {
                 name: item.name,
                 description: 'This is a Community for people with Acute bronchitis'+item.name
@@ -128,7 +129,7 @@ const Medical = (props) => {
                   Authorization: token.auth_token
                 }
               })
-              itemExists = await axios.get("http://localhost:3000/communities/find/"+item.name, 
+              itemExists = await axios.get(URL+"/communities/find/"+item.name, 
               {
                 headers: {
                   Authorization: token.auth_token
@@ -192,7 +193,7 @@ const Medical = (props) => {
         }
       }
       const username = localStorage.getItem('username')
-      const result = await axios.put("http://localhost:3000/users/"+ username, 
+      const result = await axios.put(URL+"/users/"+ username, 
       {
         communities: [communityID]
       },

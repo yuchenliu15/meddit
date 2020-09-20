@@ -9,6 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem';
+import { URL } from "../constants.js";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -102,7 +103,7 @@ const Community = (props) => {
         if (!token.auth_token) {
             history.push('/login');
         }
-        fetch(`http://localhost:3000/users/${localStorage.getItem('user')}`, {
+        fetch(`${URL}/users/${localStorage.getItem('user')}`, {
             method: 'GET',
             headers: {
                 'Authorization' : token.auth_token,
@@ -118,7 +119,7 @@ const Community = (props) => {
                 var idx; 
                 for(idx = 0; idx < res.communities.length; idx++){
                     communities.push(res.communities[idx]);
-                    fetch(`http://localhost:3000/communities/${communities[idx]}`, {
+                    fetch(`${URL}/communities/${communities[idx]}`, {
                         method: 'GET',
                         headers: {
                             'Authorization' : token.auth_token,
@@ -137,7 +138,7 @@ const Community = (props) => {
             (error) => {
                 console.log(error);
             });
-        fetch(`http://localhost:3000/communities/${localStorage.getItem('selectedCommunity')}`, {
+        fetch(`${URL}/communities/${localStorage.getItem('selectedCommunity')}`, {
             method: 'GET',
             headers: {
                 'Authorization' : token.auth_token,
@@ -154,7 +155,7 @@ const Community = (props) => {
             (error) => {
                 console.log(error);
             });
-        fetch(`http://localhost:3000/communities/${localStorage.getItem('selectedCommunity')}/posts`, {
+        fetch(`${URL}/communities/${localStorage.getItem('selectedCommunity')}/posts`, {
             method: 'GET',
             headers: {
                 'Authorization' : token.auth_token,

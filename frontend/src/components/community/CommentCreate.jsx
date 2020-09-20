@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Button, Card, Grid, CardContent, makeStyles, Divider, Typography, CheckBox} from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
+import { URL } from "../../constants.js";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -37,7 +38,7 @@ const CommentCreate = (props) => {
             setIsLoaded(false);
         }
         if(text != null){
-            fetch(`http://localhost:3000/posts/${localStorage.getItem('currentPost')}/comments`, {
+            fetch(`${URL}/posts/${localStorage.getItem('currentPost')}/comments`, {
                 method: 'POST',
                 headers: {
                     'Authorization': props.token,

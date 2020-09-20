@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Typography, Box, makeStyles, CardContent, Card, Grid} from '@material-ui/core';
+import { URL } from "../../constants.js";
 
 const useStyles = makeStyles((theme) => ({
     comment: {
@@ -12,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Comment = (props) => {
     const classes = useStyles();
+
     return (
         <Card className = {classes.comment}>
             <CardContent>
