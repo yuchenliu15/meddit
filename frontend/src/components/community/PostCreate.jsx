@@ -46,7 +46,7 @@ const PostCreate = (props) => {
             setIsLoaded(false);
         }
         if(text != null | title != null){
-            fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ/posts', {
+            fetch(`http://localhost:3000/communities/${localStorage.getItem('selectedCommunity')}/posts`, {
                 method: 'POST',
                 headers: {
                     'Authorization': props.token,

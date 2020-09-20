@@ -65,7 +65,14 @@ const Community = (props) => {
     const [render, setRender] = useState(0);
     const [activeTopic, setActiveTopic] = useState('all');
 
+    const [communities, setCommunities] = useState([]);
+
+    const [communityNames, setCommunityNames] = useState([]);
+
     const [selectedCommunity, setCommunity] = useState('');
+
+    const [newSelectedCommunity, setNewSelectedCommunity] = useState('');
+
     const [communityName, setCommunityName] = useState('');
     const [communityDescription, setCommunityDescription] = useState('');
     const [defaultSymptoms, setDefaultSymptoms] = useState([]);
@@ -77,6 +84,10 @@ const Community = (props) => {
         setRender(render + 1);
     };
 
+    const handleCommunityChange = (event) => {
+        setCommunity(event.target.value);
+    }
+
 
 
 
@@ -84,7 +95,7 @@ const Community = (props) => {
         if (!token.auth_token) {
             history.push('/login');
         }
-        fetch(`http://localhost:3000/user/${localStorage.getItem('user')}/communities`, {
+        fetch(`http://localhost:3000/users/${localStorage.getItem('user')}`, {
             method: 'GET',
             headers: {
                 'Authorization' : token.auth_token,
@@ -94,12 +105,13 @@ const Community = (props) => {
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);
-
+                localStorage.setItem('selectedCommunity', res.communities[0]);
+                setCommunities(res.communities);
             },
             (error) => {
                 console.log(error);
             });
-        fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ', {
+        fetch(`http://localhost:3000/communities/${localStorage.getItem('selectedCommunity')}`, {
             method: 'GET',
             headers: {
                 'Authorization' : token.auth_token,
@@ -117,7 +129,7 @@ const Community = (props) => {
             (error) => {
                 console.log(error);
             });
-        fetch('http://localhost:3000/communities/-MHbwyz2x97ZP_cUnnSZ/posts', {
+        fetch(`http://localhost:3000/communities/${localStorage.getItem('selectedCommunity')}/posts`, {
             method: 'GET',
             headers: {
                 'Authorization' : token.auth_token,
@@ -131,6 +143,25 @@ const Community = (props) => {
             (error) => {
                 console.log(error);
             });
+
+            // for(var idx = 0; idx < communities.length; idx++){
+            //     fetch(`http://localhost:3000/communities/${communities[idx]}`, {
+            //         method: 'GET',
+            //         headers: {
+            //             'Authorization' : token.auth_token,
+            //             'Accept' : 'application/json',
+        
+            //         }})
+            //         .then((res) => res.json())
+            //         .then((res) => {
+            //             setCommunityName(res.name);
+            //             communityNames.push(res.name);
+            //         },
+            //         (error) => {
+            //             console.log(error);
+            //         });
+            // }
+            // console.log(communityNames);
         
     }, [render, selectedCommunity]);
 
@@ -149,9 +180,10 @@ const Community = (props) => {
                                         <Select
                                         labelId="demo-simple-select-label"
                                         id="demo-simple-select"
-                                        // value={age}
-                                        // onChange={handleChange}
+                                        value={newSelectedCommunity}
+                                        onChange={handleCommunityChange}
                                         >
+                                        
                                         <MenuItem value={10}>Ten</MenuItem>
                                         <MenuItem value={20}>Twenty</MenuItem>
                                         <MenuItem value={30}>Thirty</MenuItem>
