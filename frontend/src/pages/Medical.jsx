@@ -39,8 +39,9 @@ const Medical = (props) => {
     const [illness, setIllness] = useState([])
     const [community, setCommunity] = useState([])
 
-    const onClick = () => {
+    const onCommunityClick = () => {
         history.push('/community');
+    }
 
     useEffect(() => {
         if (!token.auth_token) {
@@ -63,20 +64,20 @@ const Medical = (props) => {
           setIllness(fetchResult.conditions)
           const currentCommunities = []
           for(const item of fetchResult.conditions) {
-            const itemExists = await axios.get("http://localhost:3000/communities/find/"+item.name, 
+            let itemExists = await axios.get("http://localhost:3000/communities/find/"+item.name, 
             {
               headers: {
                 Authorization: token.auth_token
               }
             });
 
-            if(itemExists){
-              currentCommunities.push(itemExists)
+            if(itemExists.data){
+              currentCommunities.push(itemExists.data)
             }else{
-              const itemExists = await axios.post("http://localhost:3000/communities/", 
+              let itemExists = await axios.post("http://localhost:3000/communities/", 
               {
                 name: item.name,
-                description: 'sdf'
+                description: item.name
               },
               {
                 
@@ -90,7 +91,7 @@ const Medical = (props) => {
                   Authorization: token.auth_token
                 }
               });
-              currentCommunities.push(itemExists)
+              currentCommunities.push(itemExists.data)
             }
           }
 
@@ -165,7 +166,7 @@ const Medical = (props) => {
 
                             </GridList>
                         </Grid>
-                        <Button onClick={onClick} color="primary">Community</Button>
+                        <Button onClick={onCommunityClick} color="primary">Community</Button>
                     </Grid>
                 </Grid>
             </Grid>
@@ -174,4 +175,3 @@ const Medical = (props) => {
 }
 
 export default Medical;
-
