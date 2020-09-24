@@ -3,3 +3,6 @@ The purpose of meddit is to give users a better understanding of what symptoms a
 
 ### Tech stack
 NodeJS, Express, JWT, Firebase, ReactJS, Material UI
+
+### Demo
+![](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/224/319/datas/original.png)
