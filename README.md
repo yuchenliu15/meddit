@@ -13,5 +13,5 @@ Create .env files in the backend and frontend folders
 ` PORT=3000 `
 #### For the frontend folder:
 ` PORT=9000 `
-Run the backend app and the frontend app individually
+#### Run the backend app and the frontend app individually
 ` npm start `
