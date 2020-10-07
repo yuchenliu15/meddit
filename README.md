@@ -9,9 +9,9 @@ NodeJS, Express, JWT, Firebase, ReactJS, Material UI
 
 ### Instructions to run
 Create .env files in the backend and frontend folders
-# For the backend folder:
+#### For the backend folder:
 ` PORT=3000 `
-# For the frontend folder:
+#### For the frontend folder:
 ` PORT=9000 `
 Run the backend app and the frontend app individually
 ` npm start `
